@@ -11,4 +11,10 @@
     <string name="no_teams_message">You are currently not in any teams, ask a team creator to add you to a team or create your own</string>
     <string name="status">Status:</string>
     <string name="participants">Participants: 2/4</string>
+    <string name="sign_up_task">Sign Up</string>
+    <string name="complete">Complete</string>
+    <string name="add_resource">Add Info</string>
+    <string name="required_materials">Required Materials</string>
+    <string name="notes">Notes and Files</string>
+    <string name="participants_title">Participants:</string>
 </resources>
