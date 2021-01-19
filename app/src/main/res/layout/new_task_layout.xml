@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:padding="32dp"
+    tools:context=".MainActivity">
+
+
+
+    <TextView
+        android:id="@+id/new_task_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Task"
+        android:textSize="40sp"
+        android:layout_marginBottom="32dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/task_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task Name"
+        android:textSize="20sp"
+        android:layout_below="@id/new_task_text"
+        android:layout_alignLeft="@id/task_name_edit_text"
+        />
+
+    <EditText
+        android:id="@+id/task_name_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/task_name"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due"
+        android:textSize="20sp"
+        android:layout_below="@id/task_name_edit_text"
+        android:layout_alignLeft="@id/task_name_edit_text"
+        />
+
+    <EditText
+        android:id="@+id/due_date_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/due_date"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/due_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due Time"
+        android:textSize="20sp"
+        android:layout_below="@id/due_date_edit_text"
+        android:layout_alignLeft="@id/task_name_edit_text"
+        />
+
+    <EditText
+        android:id="@+id/due_time_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/due_time"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/min_participants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minimum Participants"
+        android:layout_below="@id/due_time_edit_text"
+        android:textSize="20sp"
+        android:layout_alignLeft="@id/task_name_edit_text"
+        />
+
+    <EditText
+        android:id="@+id/min_part_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/min_participants"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="20sp"
+        android:layout_below="@id/min_part_edit_text"
+        android:layout_alignLeft="@id/task_name_edit_text"
+        />
+
+    <EditText
+        android:id="@+id/description_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/description"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/required_materials"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Required Materials"
+        android:textSize="20sp"
+        android:layout_below="@id/description_edit_text"
+        android:layout_alignLeft="@id/task_name_edit_text"
+        />
+
+    <EditText
+        android:id="@+id/required_materials_edit_text"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/required_materials"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/cancel_add_task_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/gray"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/add_task_button"
+        android:layout_below="@id/required_materials_edit_text"
+        android:layout_marginLeft="150dp" />
+
+    <Button
+        android:id="@+id/add_task_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/gray"
+        android:layout_below="@id/required_materials_edit_text"
+        />
+
+</RelativeLayout>
