@@ -2,4 +2,10 @@
     <string name="app_name">Group Works</string>
     <string name="log_in">Log In</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="name">Full Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
