@@ -8,4 +8,5 @@
     <string name="name">Full Name</string>
     <string name="email_address">Email Address</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="no_teams_message">You are currently not in any teams, ask a team creator to add you to a team or create your own</string>
 </resources>
