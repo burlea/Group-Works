@@ -22,7 +22,7 @@ class TaskViewHolder: RecyclerView.ViewHolder {
 
     fun bind(task: Task) {
         taskName.text = task.name
-        taskDueDate.text = task.dueDate.toString()
+        taskDueDate.text = task.dueDate
         taskStatus.text = task.status
         taskParticpantsNumber.text = getParticipantsString(task)
     }

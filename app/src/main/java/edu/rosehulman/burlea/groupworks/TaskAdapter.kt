@@ -1,16 +1,28 @@
 package edu.rosehulman.burlea.groupworks
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import java.time.LocalDate
 import kotlin.random.Random
 
 class TaskAdapter(var context: Context) : RecyclerView.Adapter<TaskViewHolder>() {
     private val taskItems = ArrayList<Task>()
 
     fun initialize(){
+        val list = arrayListOf<String>()
 
+        val task: Task = Task("GroupWorks",
+            "01/21/2021 @ 10:00am", "Incomplete",
+        2,2,2,
+            "create an Android App",
+            "Kotlin, Guts, and no sleep",
+            "Who needs notes", list)
+
+        taskItems.add(task)
     }
 
     override fun getItemCount() = taskItems.size
