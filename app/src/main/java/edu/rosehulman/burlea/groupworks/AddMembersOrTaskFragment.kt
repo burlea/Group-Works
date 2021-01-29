@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.add_members_tasks_button_row.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +35,25 @@ class AddMembersOrTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_members_or_task, container, false)
+        return inflater.inflate(R.layout.add_members_tasks_layout, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+            add_task_button.setOnClickListener{
+                val newTaskFragment = NewTaskFragment.newInstance()
+                val ft = fragmentManager?.beginTransaction()
+                for(fragment in fragmentManager!!.fragments){
+                    if (ft != null) {
+                        ft.hide(fragment)
+                    }
+                }
+                if (ft != null) {
+                    ft.add(R.id.start_page, newTaskFragment)
+                    ft.addToBackStack("task")
+                    ft.commit()
+                }
+            }
     }
 
     companion object {

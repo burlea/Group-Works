@@ -9,25 +9,25 @@
     android:id="@+id/start_page">
 
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint = "@color/gray"
-        android:text="@string/log_in"
-        android:textColor="@color/black"
-        android:layout_marginTop="250dp"/>
+<!--    <Button-->
+<!--        android:id="@+id/loginButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:backgroundTint = "@color/gray"-->
+<!--        android:text="@string/log_in"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_marginTop="250dp"/>-->
 
-    <Button
-        android:id="@+id/signInNutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint = "@color/gray"
-        android:text="@string/sign_in"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"/>
+<!--    <Button-->
+<!--        android:id="@+id/signInNutton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint = "@color/gray"-->
+<!--        android:text="@string/sign_in"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="350dp"/>-->
 
 
 </RelativeLayout>

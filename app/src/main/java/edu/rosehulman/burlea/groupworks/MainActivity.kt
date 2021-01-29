@@ -11,8 +11,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.start_page, TaskListFragment())
-        ft.commit()
+        if(savedInstanceState == null){
+            val fragment = AddMembersOrTaskFragment()
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.start_page, fragment)
+            ft.commit()
+        }
     }
 }
