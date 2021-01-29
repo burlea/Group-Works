@@ -35,6 +35,7 @@ class TaskAdapter(var context: Context) : RecyclerView.Adapter<TaskViewHolder>()
     override fun onBindViewHolder(viewHolder: TaskViewHolder, index: Int) {
         viewHolder.bind(taskItems[index])
     }
+    
 
     fun getSelectedTask(adapterPosition: Int): Task? {
         return taskItems[adapterPosition]

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context=".MainActivity">
+    android:padding="12dp"
+    tools:context=".AddMembersOrTaskFragment">
 
 
     <Button
         android:id="@+id/add_members_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:backgroundTint = "@color/gray"
         android:text="Add Members"
         android:textColor="@color/black"
-        android:layout_marginTop="250dp"/>
+        android:layout_marginTop="250dp"
+        android:layout_alignParentStart="true"/>
 
     <Button
         android:id="@+id/add_task_button"
@@ -25,8 +26,11 @@
         android:backgroundTint = "@color/gray"
         android:text="Add Task"
         android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"/>
+        android:layout_marginTop="350dp"
+        android:layout_alignRight="@id/add_members_button"
+        android:layout_alignBaseline="@id/add_members_button"
+        android:layout_alignParentEnd="true"
+        />
 
 
-</androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

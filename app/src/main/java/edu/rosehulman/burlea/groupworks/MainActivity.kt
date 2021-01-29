@@ -11,13 +11,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        loginButton.setOnClickListener{
+        loginButton.setOnClickListener {
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.nav_host_fragment, LoginFragment())
             ft.commit()
         }
 
-        signInButton.setOnClickListener{
+        signInButton.setOnClickListener {
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.nav_host_fragment, SignInFragment())
             ft.commit()
