@@ -40,20 +40,20 @@ class AddMembersOrTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            add_task_button.setOnClickListener{
-                val newTaskFragment = NewTaskFragment.newInstance()
-                val ft = fragmentManager?.beginTransaction()
-                for(fragment in fragmentManager!!.fragments){
-                    if (ft != null) {
-                        ft.hide(fragment)
-                    }
-                }
-                if (ft != null) {
-                    ft.add(R.id.start_page, newTaskFragment)
-                    ft.addToBackStack("task")
-                    ft.commit()
-                }
-            }
+//            add_task_button.setOnClickListener{
+//                val newTaskFragment = NewTaskFragment.newInstance()
+//                val ft = fragmentManager?.beginTransaction()
+//                for(fragment in fragmentManager!!.fragments){
+//                    if (ft != null) {
+//                        ft.hide(fragment)
+//                    }
+//                }
+//                if (ft != null) {
+//                    ft.add(R.id.start_page, newTaskFragment)
+//                    ft.addToBackStack("task")
+//                    ft.commit()
+//                }
+//            }
     }
 
     companion object {
