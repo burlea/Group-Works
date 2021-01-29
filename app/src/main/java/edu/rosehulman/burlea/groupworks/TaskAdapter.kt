@@ -16,7 +16,7 @@ class TaskAdapter(var context: Context) : RecyclerView.Adapter<TaskViewHolder>()
         val list = arrayListOf<String>()
 
         val task: Task = Task("GroupWorks",
-            "01/21/2021 @ 10:00am", "Incomplete",
+            "01/22/2021 @ 10:00am", "Incomplete",
         2,2,2,
             "create an Android App",
             "Kotlin, Guts, and no sleep",
