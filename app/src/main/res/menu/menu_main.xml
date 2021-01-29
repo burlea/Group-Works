@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.rosehulman.burlea.exam2burlea.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/sign_out"
         android:orderInCategory="100"
-        android:title="Hello"
+        android:title="@string/sign_out"
         app:showAsAction="never" />
 
 </menu>
