@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.content_main.view.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -27,7 +28,7 @@ class StartPage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_main, container, false)
+        return inflater.inflate(R.layout.content_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

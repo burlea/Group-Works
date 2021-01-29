@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import edu.rosehulman.burlea.groupworks.AddMembersOrTaskFragment.Companion.newInstance
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.*
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.add_members_button
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.add_task_button
@@ -44,21 +45,13 @@ class AddMembersOrTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         add_task_button.setOnClickListener{
-            val newTaskFragment = NewTaskFragment.newInstance()
+            val newTaskFragment = NewTaskFragment()
             val ft = fragmentManager!!.beginTransaction()
             for(fragment in fragmentManager!!.fragments){
                 ft.hide(fragment)
             }
             ft.add(R.id.start_page, newTaskFragment)
             ft.addToBackStack("task")
-            ft.commit()
-        }
-
-        add_members_button.setOnClickListener {
-            val addMemberFragment = AddMemberFragment()
-            val ft = fragmentManager!!.beginTransaction()
-            ft.add(R.id.start_page, addMemberFragment)
-            ft.addToBackStack("member")
             ft.commit()
         }
     }
