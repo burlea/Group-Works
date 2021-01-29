@@ -10,10 +10,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/backgroundColor">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
 
     <Button
         android:id="@+id/authenticateButton"
