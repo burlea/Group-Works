@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context=".MainActivity"
-    android:id="@+id/start_page">
-
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/loginButton"
@@ -20,7 +18,7 @@
         android:layout_marginTop="250dp"/>
 
     <Button
-        android:id="@+id/signInNutton"
+        android:id="@+id/signInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint = "@color/gray"
@@ -28,6 +26,8 @@
         android:textColor="@color/black"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="350dp"/>
+
+
 
 
 </RelativeLayout>
