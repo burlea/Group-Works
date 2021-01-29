@@ -29,11 +29,15 @@ class TaskAdapter(var context: Context) : RecyclerView.Adapter<TaskViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, index: Int): TaskViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.task_row_view, parent, false)
-        return TaskViewHolder(view, this)
+        return TaskViewHolder(view, this, context)
     }
 
     override fun onBindViewHolder(viewHolder: TaskViewHolder, index: Int) {
         viewHolder.bind(taskItems[index])
+    }
+
+    fun getSelectedTask(adapterPosition: Int): Task? {
+        return taskItems[adapterPosition]
     }
 
 }

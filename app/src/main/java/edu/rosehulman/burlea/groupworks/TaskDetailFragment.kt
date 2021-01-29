@@ -15,10 +15,7 @@ class TaskDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val recyclerView = inflater.inflate(R.layout.fragment_task_detail, container, false) as RecyclerView
-        //Add adapter here
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
-        return recyclerView
+        return inflater.inflate(R.layout.task_detail_view, container, false)
+
     }
 }
