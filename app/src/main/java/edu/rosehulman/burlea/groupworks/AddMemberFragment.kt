@@ -27,7 +27,7 @@ class AddMemberFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_member, container, false)
+        return inflater.inflate(R.layout.add_members_layout, container, false)
     }
 
     companion object {

@@ -27,7 +27,7 @@ class NewTeamFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_new_team, container, false)
+        return inflater.inflate(R.layout.layout_create_team, container, false)
     }
 
     companion object {
