@@ -17,6 +17,7 @@
     <string name="required_materials">Required Materials</string>
     <string name="notes">Notes and Files</string>
     <string name="participants_title">Participants:</string>
+    <string name="show_teams_title">Select a team:</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

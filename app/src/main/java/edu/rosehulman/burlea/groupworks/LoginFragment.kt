@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
+    lateinit var teamToShow: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,8 +34,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         authenticateButton.setOnClickListener{
             val activity: AppCompatActivity = (context as AppCompatActivity)
-            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,TaskListFragment()).commit()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,TaskListFragment(
+                teamToShow
+            )
+            ).commit()
         }
     }
-
 }

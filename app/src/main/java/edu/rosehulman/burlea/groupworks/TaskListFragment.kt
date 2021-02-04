@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.view_tasks.*
 
-class TaskListFragment : Fragment() {
+class TaskListFragment(teamSelected: String) : Fragment() {
     private lateinit var adapter: TaskAdapter
     private lateinit var mainActivityContext: Context
 

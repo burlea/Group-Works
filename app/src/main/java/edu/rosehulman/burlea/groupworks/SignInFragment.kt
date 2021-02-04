@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.sign_up.*
 
 class SignInFragment : Fragment() {
-
+    val teamToShow: String = "null"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,10 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         signInAuthentication.setOnClickListener{
             val activity: AppCompatActivity = (context as AppCompatActivity)
-            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,TaskListFragment()).commit()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,TaskListFragment(
+                teamToShow
+            )
+            ).commit()
         }
     }
 }
