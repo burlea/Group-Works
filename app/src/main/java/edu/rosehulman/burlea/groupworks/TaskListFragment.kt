@@ -48,23 +48,21 @@ class TaskListFragment(teamSelected: String) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         add_task_button.setOnClickListener{
             val newTaskFragment = NewTaskFragment()
-            val ft = fragmentManager!!.beginTransaction()
-            for(fragment in fragmentManager!!.fragments){
-                ft.hide(fragment)
-            }
-            ft.add(R.id.nav_host_fragment, newTaskFragment)
-            ft.addToBackStack("task")
-            ft.commit()
+            switchFragment(newTaskFragment, "task")
         }
         add_members_button.setOnClickListener {
             val addMemberFragment = AddMemberFragment()
-            val ft = fragmentManager!!.beginTransaction()
-            for(fragment in fragmentManager!!.fragments){
-                ft.hide(fragment)
-            }
-            ft.add(R.id.nav_host_fragment, addMemberFragment)
-            ft.addToBackStack("member")
-            ft.commit()
+            switchFragment(addMemberFragment, "member")
         }
+    }
+
+    private fun switchFragment(fragment: Fragment, name: String){
+        val ft = fragmentManager!!.beginTransaction()
+        for(fragment in fragmentManager!!.fragments){
+            ft.hide(fragment)
+        }
+        ft.add(R.id.nav_host_fragment, fragment)
+        ft.addToBackStack(name)
+        ft.commit()
     }
 }
