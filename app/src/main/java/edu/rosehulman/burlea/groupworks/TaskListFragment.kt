@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.add_members_tasks_button_row.*
 import kotlinx.android.synthetic.main.view_tasks.*
+import kotlinx.android.synthetic.main.view_tasks.add_members_button
+import kotlinx.android.synthetic.main.view_tasks.add_task_button
+import kotlinx.android.synthetic.main.view_tasks.view.*
 
 class TaskListFragment(teamSelected: String) : Fragment() {
     private lateinit var adapter: TaskAdapter
@@ -15,9 +19,9 @@ class TaskListFragment(teamSelected: String) : Fragment() {
 
     override fun onStart(){
         super.onStart()
-        view_tasks.layoutManager = LinearLayoutManager(mainActivityContext)
-        view_tasks.setHasFixedSize(true)
-        view_tasks.adapter = adapter
+        view_tasks.recycler_view.layoutManager = LinearLayoutManager(mainActivityContext)
+        view_tasks.recycler_view.setHasFixedSize(true)
+        view_tasks.recycler_view.adapter = adapter
     }
 
     override fun onAttach(context: Context){
@@ -38,5 +42,29 @@ class TaskListFragment(teamSelected: String) : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.view_tasks, container, false);
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        add_task_button.setOnClickListener{
+            val newTaskFragment = NewTaskFragment()
+            val ft = fragmentManager!!.beginTransaction()
+            for(fragment in fragmentManager!!.fragments){
+                ft.hide(fragment)
+            }
+            ft.add(R.id.nav_host_fragment, newTaskFragment)
+            ft.addToBackStack("task")
+            ft.commit()
+        }
+        add_members_button.setOnClickListener {
+            val addMemberFragment = AddMemberFragment()
+            val ft = fragmentManager!!.beginTransaction()
+            for(fragment in fragmentManager!!.fragments){
+                ft.hide(fragment)
+            }
+            ft.add(R.id.nav_host_fragment, addMemberFragment)
+            ft.addToBackStack("member")
+            ft.commit()
+        }
     }
 }

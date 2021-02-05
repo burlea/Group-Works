@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    android:padding="32dp"
+    android:padding="24dp"
     tools:context=".NewTaskFragment">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Add Task"
         android:textSize="40sp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="40dp"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -53,7 +53,7 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/due_date"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="24dp"/>
 
     <TextView
         android:id="@+id/due_time"
@@ -72,7 +72,7 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/due_time"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="24dp"/>
 
     <TextView
         android:id="@+id/min_participants"
@@ -91,7 +91,7 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/min_participants"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="24dp"/>
 
     <TextView
         android:id="@+id/description"
@@ -110,7 +110,7 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/description"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="24dp"/>
 
     <TextView
         android:id="@+id/required_materials"
@@ -129,19 +129,8 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/required_materials"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="24dp"/>
 
-    <Button
-        android:id="@+id/cancel_add_task_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/gray"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@id/add_task_button"
-        android:layout_below="@id/required_materials_edit_text"
-        android:layout_marginLeft="150dp" />
 
     <Button
         android:id="@+id/add_task_button"
@@ -151,6 +140,7 @@
         android:textColor="@color/black"
         android:backgroundTint="@color/gray"
         android:layout_below="@id/required_materials_edit_text"
+        android:layout_centerHorizontal="true"
         />
 
 </RelativeLayout>
