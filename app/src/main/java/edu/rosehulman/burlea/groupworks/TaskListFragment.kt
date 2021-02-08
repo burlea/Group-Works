@@ -52,7 +52,7 @@ class TaskListFragment(teamSelected: String) : Fragment() {
         }
         add_members_button.setOnClickListener {
             val addMemberFragment = AddMemberFragment()
-            switchFragment(addMemberFragment, "member")
+            switchFragment(addMemberFragment,  "member")
         }
     }
 
