@@ -10,7 +10,8 @@ data class User(
     val name: String = "",
     val email: String = "",
     val teamsOwned: ArrayList<Team> = ArrayList(),
-    val teamsMemberOf: ArrayList<Team> = ArrayList()
+    val teamsMemberOf: ArrayList<Team> = ArrayList(),
+    val teamLastViewedId: String = ""
 ) {
 
     @get:Exclude

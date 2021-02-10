@@ -6,16 +6,81 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore;
 
-class MainActivity : AppCompatActivity() {
+
+private val RC_SIGN_IN = 1
+val auth = FirebaseAuth.getInstance()
+lateinit var authListener: FirebaseAuth.AuthStateListener
+lateinit var userID: String
+lateinit var taskView: TaskListFragment
+
+class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initializeListeners()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        auth.addAuthStateListener(authListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        auth.removeAuthStateListener(authListener)
+    }
+
+    private fun initializeListeners() {
+        authListener = FirebaseAuth.AuthStateListener { auth: FirebaseAuth ->
+            val user = auth.currentUser
+            if (user != null) {
+                userID = user.uid
+                switchToTaskViewFragment(userID)
+            } else {
+                switchToLoginFragment()
+            }
+        }
+    }
+
+    private fun switchToTaskViewFragment(uid: String) {
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.nav_host_fragment, StartPage())
+        taskView = TaskListFragment.newInstance(uid)
+        ft.replace(R.id.nav_host_fragment, taskView)
         ft.commit()
     }
+
+    private fun switchToLoginFragment() {
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.nav_host_fragment, LoginFragment())
+        ft.commit()
+    }
+
+    override fun onLoginButtonPressed() {
+        launchLoginUI()
+    }
+
+    private fun launchLoginUI() {
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build()
+        )
+
+        val loginIntent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .setIsSmartLockEnabled(false)
+            .build()
+
+        startActivityForResult(
+            loginIntent,
+            RC_SIGN_IN
+        )
+    }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -43,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 DialogInterface.OnClickListener { dialog, teamIndex ->
                     val teamSelected = usersTeams[teamIndex]
                     val ft = supportFragmentManager.beginTransaction()
-                    ft.replace(R.id.nav_host_fragment, TaskListFragment(teamSelected))
+                    ft.replace(R.id.nav_host_fragment, TaskListFragment())
                     ft.commit()
                 })
         val dialog = builder.create()
@@ -56,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun signOut(): Boolean {
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.nav_host_fragment, StartPage())
+        ft.replace(R.id.nav_host_fragment, LoginFragment())
         ft.commit()
         return true
     }

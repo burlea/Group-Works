@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
 import kotlin.random.Random
 
-class TaskAdapter(var context: Context) : RecyclerView.Adapter<TaskViewHolder>() {
+class TaskAdapter(var context: Context, var userID: String) : RecyclerView.Adapter<TaskViewHolder>() {
     private val taskItems = ArrayList<Task>()
+
 
     fun initialize(){
         val list = arrayListOf<String>()

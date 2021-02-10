@@ -13,9 +13,10 @@ import kotlinx.android.synthetic.main.view_tasks.add_members_button
 import kotlinx.android.synthetic.main.view_tasks.add_task_button
 import kotlinx.android.synthetic.main.view_tasks.view.*
 
-class TaskListFragment(teamSelected: String) : Fragment() {
+class TaskListFragment() : Fragment() {
     private lateinit var adapter: TaskAdapter
     private lateinit var mainActivityContext: Context
+    private var uid: String? = null
 
     override fun onStart(){
         super.onStart()
@@ -31,9 +32,12 @@ class TaskListFragment(teamSelected: String) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = TaskAdapter(mainActivityContext)
-        adapter.initialize()
         setHasOptionsMenu(true)
+        arguments?.let {
+            uid = it.getString("UID")
+        }
+        adapter = uid?.let { TaskAdapter(mainActivityContext, it) }!!
+        adapter.initialize()
     }
 
     override fun onCreateView(
@@ -64,5 +68,15 @@ class TaskListFragment(teamSelected: String) : Fragment() {
         ft.add(R.id.nav_host_fragment, fragment)
         ft.addToBackStack(name)
         ft.commit()
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(uid: String) =
+            TaskListFragment().apply {
+                arguments = Bundle().apply {
+                    putString("UID", uid)
+                }
+            }
     }
 }

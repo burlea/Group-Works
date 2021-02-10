@@ -8,36 +8,39 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.view.*
 
 
 class LoginFragment : Fragment() {
-
-     var teamToShow: String = " "
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    var listener: OnLoginButtonPressedListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        view.authenticateButton.setOnClickListener {
+            listener?.onLoginButtonPressed()
+        }
+        return view
     }
 
-    override fun onAttach(context: Context){
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        authenticateButton.setOnClickListener{
-            val activity: AppCompatActivity = (context as AppCompatActivity)
-            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,TaskListFragment(
-                teamToShow
-            )
-            ).commit()
+        if (context is OnLoginButtonPressedListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnLoginButtonPressedListener")
         }
     }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    interface OnLoginButtonPressedListener {
+        fun onLoginButtonPressed()
+    }
+
 }
