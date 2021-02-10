@@ -28,7 +28,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="authenticate">Authenticate</string>
+    <string name="authenticate">Get Started</string>
     <string name="sign_out">Sign Out</string>
     <string name="select_a_team">Select a Team</string>
+    <string name="login_message">Welcome to Groupworks!</string>
 </resources>

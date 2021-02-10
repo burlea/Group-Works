@@ -9,14 +9,35 @@
     android:background="@color/backgroundColor">
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/login_message"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="190dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_group_24"
+        android:layout_centerInParent="true"
+        android:outlineSpotShadowColor="@color/backgroundColor"
+        />
+
     <Button
         android:id="@+id/authenticateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:backgroundTint = "@color/gray"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint = "@color/black"
         android:text="@string/authenticate"
-        android:textColor="@color/black"
-        android:layout_marginTop="250dp"/>
+        android:textStyle="bold"
+        android:textColor="@color/backgroundColor"
+        android:layout_marginTop="450dp"/>
 
 </RelativeLayout>
