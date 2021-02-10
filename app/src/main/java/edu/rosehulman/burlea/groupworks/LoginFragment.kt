@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
-    lateinit var teamToShow: String
+     var teamToShow: String = " "
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
