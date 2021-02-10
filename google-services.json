@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "316164061175",
+    "project_id": "group-works",
+    "storage_bucket": "group-works.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316164061175:android:f5c8f618c110b39cc4e0f2",
+        "android_client_info": {
+          "package_name": "edu.rosehulman.burlea.groupworks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316164061175-tjd7q7lava6ogcg6pk9uk40k0em6donp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.rosehulman.burlea.groupworks",
+            "certificate_hash": "9054a83eeda4de74cbfade2f258079510ad127b0"
+          }
+        },
+        {
+          "client_id": "316164061175-5ojlgr2j68mbekc51fotd9c21cep0acb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuq4oYtAZCu-THHFeEixkebkjj-ne4D_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316164061175-5ojlgr2j68mbekc51fotd9c21cep0acb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
