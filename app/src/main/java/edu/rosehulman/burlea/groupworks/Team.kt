@@ -1,5 +1,9 @@
 package edu.rosehulman.burlea.groupworks
 
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.QuerySnapshot
+
 data class Team(
     val teamName: String = "",
     val tasks: ArrayList<Task> = ArrayList(),
