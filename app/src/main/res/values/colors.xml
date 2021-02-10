@@ -7,7 +7,7 @@
     <color name="gray">#A59C9C</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="backgroundColor">#7ABDDC</color>
+    <color name="backgroundColor">#ACDFFF</color>
     <color name="titleBarColor">#0926C8</color>
     <color name="completeStatus">#099A10</color>
     <color name="incompleteStatus">#AC0707</color>

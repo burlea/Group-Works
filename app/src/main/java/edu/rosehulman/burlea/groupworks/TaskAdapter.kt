@@ -42,4 +42,9 @@ class TaskAdapter(var context: Context, var userID: String) : RecyclerView.Adapt
         return taskItems[adapterPosition]
     }
 
+    fun add(task: Task){
+        taskItems.add(0, task)
+        notifyItemInserted(0)
+    }
+
 }

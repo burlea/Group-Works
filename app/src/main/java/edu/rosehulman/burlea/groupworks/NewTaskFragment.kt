@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.*
+import kotlinx.android.synthetic.main.add_members_tasks_button_row.add_task_button
+import kotlinx.android.synthetic.main.new_task_layout.*
 
 
 class NewTaskFragment : Fragment() {
@@ -22,6 +24,14 @@ class NewTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        add_task_button.setOnClickListener {
+            var taskName = task_name_edit_text.text.toString()
+            var dueDate = due_date_edit_text.text.toString()
+            var status = "Incomplete"
+            var minParticipants = min_part_edit_text.text.toString().toInt()
+            var description = description_edit_text.text.toString()
+            var requiredMaterials = required_materials_edit_text.text.toString()
 
+        }
     }
 }
