@@ -51,7 +51,7 @@ class TaskListFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         add_task_button.setOnClickListener{
-            val newTaskFragment = NewTaskFragment()
+            val newTaskFragment = NewTaskFragment(adapter)
             switchFragment(newTaskFragment, "task")
         }
         add_members_button.setOnClickListener {

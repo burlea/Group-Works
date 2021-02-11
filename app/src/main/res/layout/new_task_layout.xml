@@ -76,10 +76,10 @@
         android:layout_marginBottom="24dp"/>
 
     <TextView
-        android:id="@+id/min_participants"
+        android:id="@+id/participants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Minimum Participants"
+        android:text="Participants"
         android:layout_below="@id/due_time_edit_text"
         android:textSize="20sp"
         android:layout_alignLeft="@id/task_name_edit_text"
@@ -87,12 +87,45 @@
 
     <EditText
         android:id="@+id/min_part_edit_text"
-        android:layout_width="200dp"
+        android:layout_width="50dp"
         android:layout_height="30dp"
         android:background="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/min_participants"
-        android:layout_marginBottom="24dp"/>
+        android:layout_below="@id/participants"
+        android:layout_alignLeft="@id/task_name_edit_text"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="4dp"/>
+
+    <TextView
+        android:id="@+id/min_participants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Min"
+        android:layout_below="@id/participants"
+        android:textSize="20sp"
+        android:layout_toRightOf="@id/min_part_edit_text"
+        android:layout_marginRight="16dp"
+        />
+
+    <EditText
+        android:id="@+id/max_part_edit_text"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_below="@id/participants"
+        android:layout_toRightOf="@id/min_participants"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="4dp"/>
+
+    <TextView
+        android:id="@+id/max_participants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max"
+        android:layout_below="@id/participants"
+        android:textSize="20sp"
+        android:layout_toRightOf="@id/max_part_edit_text"
+        android:layout_marginRight="16dp"
+        />
 
     <TextView
         android:id="@+id/description"
@@ -100,7 +133,7 @@
         android:layout_height="wrap_content"
         android:text="Description"
         android:textSize="20sp"
-        android:layout_below="@id/min_part_edit_text"
+        android:layout_below="@id/max_part_edit_text"
         android:layout_alignLeft="@id/task_name_edit_text"
         />
 

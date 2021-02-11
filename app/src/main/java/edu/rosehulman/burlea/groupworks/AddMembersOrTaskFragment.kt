@@ -38,16 +38,7 @@ class AddMembersOrTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        add_task_button.setOnClickListener{
-            val newTaskFragment = NewTaskFragment()
-            val ft = fragmentManager!!.beginTransaction()
-            for(fragment in fragmentManager!!.fragments){
-                ft.hide(fragment)
-            }
-            ft.add(R.id.nav_host_fragment, newTaskFragment)
-            ft.addToBackStack("task")
-            ft.commit()
-        }
+
         add_members_button.setOnClickListener {
             val addMemberFragment = AddMemberFragment()
             val ft = fragmentManager!!.beginTransaction()
