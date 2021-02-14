@@ -13,7 +13,7 @@
         android:id="@+id/new_task_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Task"
+        android:text="@string/add_a_task"
         android:textSize="40sp"
         android:layout_marginBottom="40dp"
         android:layout_centerHorizontal="true" />
@@ -22,10 +22,10 @@
         android:id="@+id/task_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Name"
+        android:text="@string/task_name"
         android:textSize="20sp"
         android:layout_below="@id/new_task_text"
-        android:layout_alignLeft="@id/task_name_edit_text"
+        android:layout_alignStart="@id/task_name_edit_text"
         />
 
     <EditText
@@ -35,16 +35,17 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/task_name"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:inputType="textCapWords"/>
 
     <TextView
         android:id="@+id/due_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Due"
+        android:text="@string/due_date"
         android:textSize="20sp"
         android:layout_below="@id/task_name_edit_text"
-        android:layout_alignLeft="@id/task_name_edit_text"
+        android:layout_alignStart="@id/task_name_edit_text"
         />
 
     <EditText
@@ -54,16 +55,18 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/due_date"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="24dp"
+        android:inputType="date"
+        android:hint="@string/due_date_hint"/>
 
     <TextView
         android:id="@+id/due_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Due Time"
+        android:text="@string/due_time"
         android:textSize="20sp"
         android:layout_below="@id/due_date_edit_text"
-        android:layout_alignLeft="@id/task_name_edit_text"
+        android:layout_alignStart="@id/task_name_edit_text"
         />
 
     <EditText
@@ -73,16 +76,18 @@
         android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/due_time"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="24dp"
+        android:inputType="time"
+        android:hint="@string/due_time_hint"/>
 
     <TextView
         android:id="@+id/participants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Participants"
+        android:text="@string/participants_title"
         android:layout_below="@id/due_time_edit_text"
         android:textSize="20sp"
-        android:layout_alignLeft="@id/task_name_edit_text"
+        android:layout_alignStart="@id/task_name_edit_text"
         />
 
     <EditText
@@ -91,15 +96,17 @@
         android:layout_height="30dp"
         android:background="@color/white"
         android:layout_below="@id/participants"
-        android:layout_alignLeft="@id/task_name_edit_text"
+        android:layout_alignStart="@id/task_name_edit_text"
         android:layout_marginBottom="24dp"
-        android:layout_marginRight="4dp"/>
+        android:layout_marginEnd="4dp"
+        android:inputType="phone"
+        android:text="@string/min_max_part_default"/>
 
     <TextView
         android:id="@+id/min_participants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Min"
+        android:text="@string/min_part"
         android:layout_below="@id/participants"
         android:textSize="20sp"
         android:layout_toRightOf="@id/min_part_edit_text"
@@ -112,15 +119,17 @@
         android:layout_height="30dp"
         android:background="@color/white"
         android:layout_below="@id/participants"
-        android:layout_toRightOf="@id/min_participants"
+        android:layout_toEndOf="@id/min_participants"
         android:layout_marginBottom="24dp"
-        android:layout_marginRight="4dp"/>
+        android:layout_marginEnd="4dp"
+        android:inputType="phone"
+        android:text="@string/min_max_part_default"/>
 
     <TextView
         android:id="@+id/max_participants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Max"
+        android:text="@string/max_part"
         android:layout_below="@id/participants"
         android:textSize="20sp"
         android:layout_toRightOf="@id/max_part_edit_text"
@@ -131,7 +140,7 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="@string/task_description"
         android:textSize="20sp"
         android:layout_below="@id/max_part_edit_text"
         android:layout_alignLeft="@id/task_name_edit_text"
@@ -150,7 +159,7 @@
         android:id="@+id/required_materials"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Required Materials"
+        android:text="@string/required_materials"
         android:textSize="20sp"
         android:layout_below="@id/description_edit_text"
         android:layout_alignLeft="@id/task_name_edit_text"

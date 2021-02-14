@@ -14,7 +14,7 @@
     <string name="sign_up_task">Sign Up</string>
     <string name="complete">Complete</string>
     <string name="add_resource">Save Info</string>
-    <string name="required_materials">Required Materials</string>
+    <string name="required_materials">Required Materials:</string>
     <string name="notes">Notes and Files</string>
     <string name="participants_title">Participants:</string>
     <string name="show_teams_title">Select a team:</string>
@@ -32,4 +32,14 @@
     <string name="sign_out">Sign Out</string>
     <string name="select_a_team">Select a Team</string>
     <string name="login_message">Welcome to Groupworks!</string>
+    <string name="add_a_task">Add a Task</string>
+    <string name="task_name">Task Name:</string>
+    <string name="due_date">Due Date:</string>
+    <string name="due_time">Due Time:</string>
+    <string name="min_part">Min</string>
+    <string name="max_part">Max</string>
+    <string name="task_description">Description:</string>
+    <string name="due_date_hint">mm/dd/yy</string>
+    <string name="due_time_hint">12:00am</string>
+    <string name="min_max_part_default">1</string>
 </resources>
