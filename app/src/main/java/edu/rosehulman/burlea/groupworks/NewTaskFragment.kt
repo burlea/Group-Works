@@ -9,6 +9,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.*
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.add_task_button
 import kotlinx.android.synthetic.main.new_task_layout.*
+import kotlin.math.min
 
 
 class NewTaskFragment(var adapter: TaskAdapter) : Fragment() {
@@ -31,8 +32,20 @@ class NewTaskFragment(var adapter: TaskAdapter) : Fragment() {
             val dueTime = due_time_edit_text.text.toString()
             val dueDateAndTime = dueDate + " @ " + dueTime
             val status = "Incomplete"
-            val minParticipants = min_part_edit_text.text.toString().toInt()
-            val maxParticipants = max_part_edit_text.text.toString().toInt()
+            val minParticipants: Int
+            val maxParticipants: Int
+            if(min_part_edit_text.text.isEmpty()){
+                minParticipants = 1
+            }
+            else{
+                minParticipants = min_part_edit_text.text.toString().toInt()
+            }
+            if(max_part_edit_text.text.isEmpty()){
+                maxParticipants = 1
+            }
+            else{
+                maxParticipants = max_part_edit_text.text.toString().toInt()
+            }
             val currentParticipants = 0
             val description = description_edit_text.text.toString()
             val requiredMaterials = required_materials_edit_text.text.toString()
