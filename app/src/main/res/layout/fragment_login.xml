@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_group_24"
         android:layout_centerInParent="true"
-        android:outlineSpotShadowColor="@color/backgroundColor"
         />
 
     <Button
