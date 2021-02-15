@@ -2,31 +2,55 @@ package edu.rosehulman.burlea.groupworks
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.*
 import java.time.LocalDate
 import kotlin.random.Random
 
-class TaskAdapter(var context: Context, var userID: String) : RecyclerView.Adapter<TaskViewHolder>() {
+class TaskAdapter(var context: Context, var userID: String) :
+    RecyclerView.Adapter<TaskViewHolder>() {
     private val taskItems = ArrayList<Task>()
+    private var taskToDisplayPosition = 0
+    private var teamRef = FirebaseFirestore.getInstance().collection("teams")
+    private var tasksRef = FirebaseFirestore.getInstance().collection("tasks")
+    private lateinit var currentTeam: Team
+    private var listener: ListenerRegistration? = null
 
-
-    fun initialize(){
-        val list = arrayListOf<String>()
-        list.add("Bob")
-        list.add("Lee")
-        list.add("Tom")
-
-        val task: Task = Task("GroupWorks",
-            "01/22/2021 @ 10:00am", "Incomplete",
-        2,2,2,
-            "create an Android App",
-            "Kotlin, Guts, and no sleep",
-            "Who needs notes", list)
-
-        taskItems.add(task)
+    private fun createListener() {
+        clearData()
+        val teamRefDocument = teamRef.document(currentTeam.id)
+        listener = tasksRef.whereEqualTo("team", teamRefDocument)
+            .addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
+                if (snapshot != null) {
+                    for (docChange in snapshot.documentChanges) {
+                        val task = Task.fromSnapshot(docChange.document)
+                        when (docChange.type) {
+                            DocumentChange.Type.ADDED -> {
+                                taskItems.add(0, task)
+                                notifyItemInserted(0)
+                            }
+                            DocumentChange.Type.MODIFIED -> {
+                                val position = taskItems.indexOfFirst { task.id == it.id }
+                                taskItems[position] = task
+                                notifyItemChanged(position)
+                            }
+                            DocumentChange.Type.REMOVED -> {
+                                val position = taskItems.indexOfFirst { task.id == it.id }
+                                taskItems.remove(task)
+                                notifyItemRemoved(position)
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    private fun clearData() {
+        taskItems.clear()
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = taskItems.size
@@ -39,15 +63,30 @@ class TaskAdapter(var context: Context, var userID: String) : RecyclerView.Adapt
     override fun onBindViewHolder(viewHolder: TaskViewHolder, index: Int) {
         viewHolder.bind(taskItems[index])
     }
-    
+
 
     fun getSelectedTask(adapterPosition: Int): Task? {
         return taskItems[adapterPosition]
     }
 
-    fun add(task: Task){
+    fun add(task: Task) {
         taskItems.add(0, task)
         notifyItemInserted(0)
     }
 
+    fun updateTaskToDisplay(taskToDisplay: Task) {
+        taskItems[taskToDisplayPosition] = taskToDisplay
+        Log.d(Constants.TAG, taskItems[taskToDisplayPosition].id)
+        tasksRef.document(taskItems[taskToDisplayPosition].id).set(taskItems[taskToDisplayPosition])
+        notifyItemChanged(taskToDisplayPosition)
+    }
+
+    fun setTaskToDisplay(taskToDisplayPosition: Int) {
+        this.taskToDisplayPosition = taskToDisplayPosition
+    }
+
+    fun setCurrentTeam(team: Team?) {
+        currentTeam = team!!
+        createListener()
+    }
 }

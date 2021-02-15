@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.view_tasks.add_task_button
 import kotlinx.android.synthetic.main.view_tasks.view.*
 import kotlin.properties.Delegates
 
-class TaskListFragment() : Fragment(){
+class TaskListFragment() : Fragment() {
     private lateinit var adapter: TaskAdapter
     private lateinit var mainActivityContext: Context
     private var uid: String? = null
@@ -49,14 +49,14 @@ class TaskListFragment() : Fragment(){
         }
         adapter = uid?.let { TaskAdapter(mainActivityContext, it) }!!
         adapterHandler.setAdapter(adapter)
-        adapter.initialize()
     }
 
     private fun getTeam(teamId: String) {
         teamRef.document(teamId)
             .get()
             .addOnSuccessListener { documentSnapshot ->
-                team = documentSnapshot.toObject<Team>()
+                team = Team.fromSnapshot(documentSnapshot)
+                adapter.setCurrentTeam(team)
                 seeIfOwner()
                 title.text = team!!.teamName
                 title.visibility = View.VISIBLE
@@ -72,10 +72,10 @@ class TaskListFragment() : Fragment(){
                 isOwner = true
             }
         }
-        if (!isOwner){
-            hideOwnerButtons()
-        }else{
+        if (isOwner) {
             showOwnerButtons()
+        } else {
+            hideOwnerButtons()
         }
     }
 
