@@ -39,6 +39,10 @@ class TaskDetailFragment : Fragment() {
         if (participantsList.size != 0){
             participants_list.text = participantsList.toString()
         }
-
+        complete_task.setOnClickListener {
+            task_status_detail.setText(getString(R.string.task_detail_complete_status))
+            task_status_detail.setTextColor(resources.getColor(R.color.completeStatus))
+            taskToDisplay.status = "Complete"
+        }
     }
 }

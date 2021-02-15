@@ -42,4 +42,5 @@
     <string name="due_date_hint">mm/dd/yy</string>
     <string name="due_time_hint">12:00am</string>
     <string name="min_max_part_default">1</string>
+    <string name="task_detail_complete_status">Status: Complete</string>
 </resources>
