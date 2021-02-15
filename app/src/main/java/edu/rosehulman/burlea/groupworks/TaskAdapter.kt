@@ -70,8 +70,7 @@ class TaskAdapter(var context: Context, var userID: String) :
     }
 
     fun add(task: Task) {
-        taskItems.add(0, task)
-        notifyItemInserted(0)
+        tasksRef.add(task)
     }
 
     fun updateTaskToDisplay(taskToDisplay: Task) {
