@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.new_task_layout.*
 import kotlinx.android.synthetic.main.task_detail_view.*
 import kotlinx.android.synthetic.main.task_detail_view.required_materials
 
 class TaskDetailFragment : Fragment() {
     private lateinit var selectedTaskHandler: SelectedTaskHandler
     private lateinit var taskToDisplay: Task
+    private lateinit var adapter: TaskAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         selectedTaskHandler = (context as SelectedTaskHandler.SelectedTaskHandlerInterface).getSelectedTaskHandler()
         taskToDisplay = selectedTaskHandler.getSelectedTask()
+        adapter = (context as AdapterHandler.AdapterHandlerInterface).getAdapterHandler().getAdapter()
     }
 
     override fun onCreateView(
@@ -36,5 +39,6 @@ class TaskDetailFragment : Fragment() {
         if (participantsList.size != 0){
             participants_list.text = participantsList.toString()
         }
+
     }
 }

@@ -17,13 +17,14 @@ import kotlinx.android.synthetic.main.view_tasks.add_task_button
 import kotlinx.android.synthetic.main.view_tasks.view.*
 import kotlin.properties.Delegates
 
-class TaskListFragment() : Fragment() {
+class TaskListFragment() : Fragment(){
     private lateinit var adapter: TaskAdapter
     private lateinit var mainActivityContext: Context
     private var uid: String? = null
     private var team: Team? = null
     private val teamRef = FirebaseFirestore.getInstance().collection("teams")
     private var isOwner = false
+    private lateinit var adapterHandler: AdapterHandler
 
     override fun onStart() {
         super.onStart()
@@ -35,6 +36,7 @@ class TaskListFragment() : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivityContext = context
+        adapterHandler = (context as AdapterHandler.AdapterHandlerInterface).getAdapterHandler()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +47,8 @@ class TaskListFragment() : Fragment() {
             val teamId = it.getString("TeamId")
             getTeam(teamId!!)
         }
-
         adapter = uid?.let { TaskAdapter(mainActivityContext, it) }!!
+        adapterHandler.setAdapter(adapter)
         adapter.initialize()
     }
 

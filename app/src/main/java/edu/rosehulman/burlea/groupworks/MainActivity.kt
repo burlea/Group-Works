@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Adapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.firebase.ui.auth.AuthUI
@@ -23,11 +24,12 @@ lateinit var taskView: TaskListFragment
 private val usersRef = FirebaseFirestore.getInstance().collection("users")
 private val teamsRef = FirebaseFirestore.getInstance().collection("teams")
 private var teamsUserIsIn = hashMapOf<String, Team>()
-var taskHandler = SelectedTaskHandler()
+private var taskHandler = SelectedTaskHandler()
+var adapterHandler = AdapterHandler()
 
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener,
-    SelectedTaskHandler.SelectedTaskHandlerInterface {
+    SelectedTaskHandler.SelectedTaskHandlerInterface, AdapterHandler.AdapterHandlerInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -194,4 +196,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
     }
 
     override fun getSelectedTaskHandler() = taskHandler
+
+    override fun getAdapterHandler() = adapterHandler
 }
