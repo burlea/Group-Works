@@ -51,12 +51,13 @@ class TaskListFragment() : Fragment() {
     }
 
     private fun getTeam(teamId: String) {
-        Log.d(Constants.TAG, "AtGEt Team$teamId")
         teamRef.document(teamId)
             .get()
             .addOnSuccessListener { documentSnapshot ->
                 team = documentSnapshot.toObject<Team>()
                 seeIfOwner()
+                title.text = team!!.teamName
+                title.visibility = View.VISIBLE
             }.addOnFailureListener { e ->
                 Log.e(Constants.TAG, "could not get team:FAILURE", e)
             }
@@ -82,8 +83,8 @@ class TaskListFragment() : Fragment() {
     }
 
     private fun hideOwnerButtons() {
-        add_task_button.visibility = View.GONE
-        add_members_button.visibility = View.GONE
+        add_task_button.visibility = View.INVISIBLE
+        add_members_button.visibility = View.INVISIBLE
     }
 
     override fun onCreateView(

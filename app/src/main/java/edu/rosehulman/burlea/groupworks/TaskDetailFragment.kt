@@ -2,12 +2,10 @@ package edu.rosehulman.burlea.groupworks
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.new_task_layout.*
 import kotlinx.android.synthetic.main.task_detail_view.*
 import kotlinx.android.synthetic.main.task_detail_view.required_materials
 
@@ -39,6 +37,4 @@ class TaskDetailFragment : Fragment() {
             participants_list.text = participantsList.toString()
         }
     }
-
-
 }
