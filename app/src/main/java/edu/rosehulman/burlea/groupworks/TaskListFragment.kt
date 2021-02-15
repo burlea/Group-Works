@@ -47,7 +47,6 @@ class TaskListFragment() : Fragment() {
             if (hasTeam){
                 getTeam(teamId!!)
             }else{
-                Log.e(Constants.TAG, "No team found")
                 val noTeamFragment: Fragment = NoTeamsFragment()
                 switchFragment(noTeamFragment, "noTeam")
             }

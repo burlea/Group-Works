@@ -144,7 +144,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     val teamName = team.teamName
                     teamsUserIsIn[teamName] = team
                     teamNames.add(teamName)
-                    Log.d(Constants.TAG, "Added $teamNames");
                 }
                 showTeamsDialog(teamNames)
             }.addOnFailureListener {
@@ -162,8 +161,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             val teamSelected = usersTeams[teamIndex]
             val ft = supportFragmentManager.beginTransaction()
             val team = teamsUserIsIn.get(teamSelected)
-            Log.d(Constants.TAG, "AtGEt Team${team!!.id}")
-            val taskListFragment = TaskListFragment.newInstance(userID, team.id, true)
+            val taskListFragment = TaskListFragment.newInstance(userID, team!!.id, true)
             ft.replace(R.id.nav_host_fragment, taskListFragment)
             ft.commit()
         }

@@ -1,15 +1,11 @@
 package edu.rosehulman.burlea.groupworks
 
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.*
-import java.time.LocalDate
-import kotlin.random.Random
 
 class TaskAdapter(var context: Context, var userID: String) :
     RecyclerView.Adapter<TaskViewHolder>() {
@@ -95,7 +91,6 @@ class TaskAdapter(var context: Context, var userID: String) :
         viewHolder.bind(taskItems[index])
     }
 
-
     fun getSelectedTask(adapterPosition: Int): Task? {
         return taskItems[adapterPosition]
     }
@@ -106,7 +101,6 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun updateTaskToDisplay(taskToDisplay: Task) {
         taskItems[taskToDisplayPosition] = taskToDisplay
-        Log.d(Constants.TAG, taskItems[taskToDisplayPosition].id)
         tasksRef.document(taskItems[taskToDisplayPosition].id).set(taskItems[taskToDisplayPosition])
         notifyItemChanged(taskToDisplayPosition)
     }
@@ -125,10 +119,28 @@ class TaskAdapter(var context: Context, var userID: String) :
     }
 
     fun setLastViewedTeam() {
-        val currentUser = users.find{ user ->
-            user.id == userID
-        }
+        val currentUser = getUserFromId(userID)
         currentUser!!.teamLastViewedByUser = teamRef.document(currentTeam.id)
         usersRef.document(userID).set(currentUser)
+    }
+
+    fun seeIfSignedUp(task: Task): Boolean {
+        val currentUser = getUserFromId(userID)
+        return task.participantsList.contains(currentUser!!.username)
+    }
+
+    fun getUserFromId(userId: String): User? {
+        return users.find { user ->
+            user.id == userId
+        }
+    }
+
+    fun updateParticipantsList(task: Task) {
+        val username = getUserFromId(userID)!!.username
+        val list = task.participantsList
+        list.toMutableList().add(username)
+
+        task.currentParticipants++
+        notifyDataSetChanged()
     }
 }
