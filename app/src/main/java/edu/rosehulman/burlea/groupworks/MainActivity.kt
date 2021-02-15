@@ -10,9 +10,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ktx.toObject
-
+import java.sql.Ref
 
 private val RC_SIGN_IN = 1
 val auth = FirebaseAuth.getInstance()
@@ -46,32 +47,31 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             val user = auth.currentUser
             if (user != null) {
                 userID = user.uid
-                switchToTaskViewFragment(userID)
+                findLastViewedTeam()
             } else {
                 switchToLoginFragment()
             }
         }
     }
 
-    private fun switchToTaskViewFragment(uid: String) {
+    private fun switchToTaskViewFragment(teamID: String) {
         val ft = supportFragmentManager.beginTransaction()
-        val teamID = getLastViewedTeam()
-        taskView = TaskListFragment.newInstance(uid, teamID)
+        Log.d(Constants.TAG, "at switch: $teamID")
+        taskView = TaskListFragment.newInstance(userID, teamID)
         ft.replace(R.id.nav_host_fragment, taskView)
         ft.commit()
     }
 
-    private fun getLastViewedTeam(): String {
+    private fun findLastViewedTeam() {
         var userLastTeamID = ""
-        usersRef.whereEqualTo("uid", userID)
+        usersRef.document(userID)
             .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val user = document.toObject<User>()
-                    userLastTeamID = user.teamLastViewedId
-                }
+            .addOnSuccessListener { document ->
+                val teamLastViewedReference = document.get("teamLastViewed") as DocumentReference
+                userLastTeamID = teamLastViewedReference.id
+                Log.d(Constants.TAG, "id: $userLastTeamID")
+                switchToTaskViewFragment(userLastTeamID)
             }
-        return userLastTeamID
     }
 
     private fun switchToLoginFragment() {
@@ -115,15 +115,15 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
     }
 
     private fun showTeams(): Boolean {
-        if (auth.currentUser == null){
+        if (auth.currentUser == null) {
             presentCantSeeTeamsToast()
-        }else {
+        } else {
             getTeams()
         }
         return true
     }
 
-    private fun presentCantSeeTeamsToast(){
+    private fun presentCantSeeTeamsToast() {
         Toast.makeText(
             this,
             "Please log in to view your teams",
@@ -141,10 +141,10 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     val teamName = team.teamName
                     teamsUserIsIn[teamName] = team
                     teamNames.add(teamName)
-                    Log.d(Constants.TAG,"Added $teamNames");
+                    Log.d(Constants.TAG, "Added $teamNames");
                 }
                 showTeamsDialog(teamNames)
-            }.addOnFailureListener{
+            }.addOnFailureListener {
                 Log.d(Constants.TAG, "Error: $it")
             }
         return true
@@ -153,7 +153,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
     private fun showTeamsDialog(usersTeams: ArrayList<String>) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Select a team to view")
-        builder.setItems(usersTeams.toTypedArray()
+        builder.setItems(
+            usersTeams.toTypedArray()
         ) { _, teamIndex ->
             val teamSelected = usersTeams[teamIndex]
             val ft = supportFragmentManager.beginTransaction()
@@ -167,15 +168,15 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
     }
 
     private fun signOut(): Boolean {
-        if (auth.currentUser == null){
+        if (auth.currentUser == null) {
             presentCantSeeSignOutToast()
-        }else {
+        } else {
             signOutLoggedInUser()
         }
         return true
     }
 
-    private fun presentCantSeeSignOutToast(){
+    private fun presentCantSeeSignOutToast() {
         Toast.makeText(
             this,
             "Please log in to sign out",
@@ -183,7 +184,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         ).show()
     }
 
-    private fun signOutLoggedInUser(){
+    private fun signOutLoggedInUser() {
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.nav_host_fragment, LoginFragment())
         ft.commit()

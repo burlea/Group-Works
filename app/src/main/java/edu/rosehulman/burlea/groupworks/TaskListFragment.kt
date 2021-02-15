@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
-import kotlinx.android.synthetic.main.add_members_tasks_button_row.*
 import kotlinx.android.synthetic.main.view_tasks.*
 import kotlinx.android.synthetic.main.view_tasks.add_members_button
 import kotlinx.android.synthetic.main.view_tasks.add_task_button
 import kotlinx.android.synthetic.main.view_tasks.view.*
+import kotlin.properties.Delegates
 
 class TaskListFragment() : Fragment() {
     private lateinit var adapter: TaskAdapter
@@ -22,6 +23,7 @@ class TaskListFragment() : Fragment() {
     private var uid: String? = null
     private var team: Team? = null
     private val teamRef = FirebaseFirestore.getInstance().collection("teams")
+    private var isOwner = false
 
     override fun onStart() {
         super.onStart()
@@ -40,9 +42,10 @@ class TaskListFragment() : Fragment() {
         setHasOptionsMenu(true)
         arguments?.let {
             uid = it.getString("UID")
-            val teamId = it.getString("teamId")
-            //getTeam(teamId!!)
+            val teamId = it.getString("TeamId")
+            getTeam(teamId!!)
         }
+
         adapter = uid?.let { TaskAdapter(mainActivityContext, it) }!!
         adapter.initialize()
     }
@@ -52,9 +55,34 @@ class TaskListFragment() : Fragment() {
             .get()
             .addOnSuccessListener { documentSnapshot ->
                 team = documentSnapshot.toObject<Team>()
+                seeIfOwner()
             }.addOnFailureListener { e ->
                 Log.e(Constants.TAG, "could not get team:FAILURE", e)
             }
+    }
+
+    private fun seeIfOwner() {
+        val listOfOwners = team!!.owners
+        for (ownerRef in listOfOwners) {
+            if (ownerRef.id == userID) {
+                isOwner = true
+            }
+        }
+        if (!isOwner){
+            hideOwnerButtons()
+        }else{
+            showOwnerButtons()
+        }
+    }
+
+    private fun showOwnerButtons() {
+        add_task_button.visibility = View.VISIBLE
+        add_members_button.visibility = View.VISIBLE
+    }
+
+    private fun hideOwnerButtons() {
+        add_task_button.visibility = View.GONE
+        add_members_button.visibility = View.GONE
     }
 
     override fun onCreateView(
@@ -75,6 +103,8 @@ class TaskListFragment() : Fragment() {
             val addMemberFragment = AddMemberFragment()
             switchFragment(addMemberFragment, "member")
         }
+        add_task_button.visibility = View.GONE
+        add_members_button.visibility = View.GONE
     }
 
     private fun switchFragment(fragment: Fragment, name: String) {
