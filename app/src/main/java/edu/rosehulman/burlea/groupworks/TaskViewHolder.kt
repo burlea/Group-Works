@@ -37,7 +37,7 @@ class TaskViewHolder: RecyclerView.ViewHolder {
     }
 
     fun bind(task: Task) {
-        if (task.status == "Complete"){
+        if (task.status == "Completed"){
             taskStatus.setTextColor(ContextCompat.getColor(context!!, R.color.completeStatus))
         }else{
             taskStatus.setTextColor(ContextCompat.getColor(context!!, R.color.incompleteStatus))
