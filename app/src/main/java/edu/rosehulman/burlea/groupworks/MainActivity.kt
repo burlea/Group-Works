@@ -23,9 +23,11 @@ lateinit var taskView: TaskListFragment
 private val usersRef = FirebaseFirestore.getInstance().collection("users")
 private val teamsRef = FirebaseFirestore.getInstance().collection("teams")
 private var teamsUserIsIn = hashMapOf<String, Team>()
+var taskHandler = SelectedTaskHandler()
 
 
-class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener {
+class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener,
+    SelectedTaskHandler.SelectedTaskHandlerInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -190,4 +192,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         ft.replace(R.id.nav_host_fragment, LoginFragment())
         ft.commit()
     }
+
+    override fun getSelectedTaskHandler() = taskHandler
 }

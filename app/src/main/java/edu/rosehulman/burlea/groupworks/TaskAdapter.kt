@@ -15,6 +15,9 @@ class TaskAdapter(var context: Context, var userID: String) : RecyclerView.Adapt
 
     fun initialize(){
         val list = arrayListOf<String>()
+        list.add("Bob")
+        list.add("Lee")
+        list.add("Tom")
 
         val task: Task = Task("GroupWorks",
             "01/22/2021 @ 10:00am", "Incomplete",
