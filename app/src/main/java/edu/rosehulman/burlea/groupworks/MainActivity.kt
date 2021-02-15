@@ -192,6 +192,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.nav_host_fragment, LoginFragment())
         ft.commit()
+        val adapter = getAdapterHandler().getAdapter()
+        adapter.setLastViewedTeam()
     }
 
     override fun getSelectedTaskHandler() = taskHandler

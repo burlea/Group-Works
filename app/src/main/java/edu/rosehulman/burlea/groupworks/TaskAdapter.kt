@@ -14,16 +14,46 @@ import kotlin.random.Random
 class TaskAdapter(var context: Context, var userID: String) :
     RecyclerView.Adapter<TaskViewHolder>() {
     private val taskItems = ArrayList<Task>()
+    private val users = ArrayList<User>()
     private var taskToDisplayPosition = 0
     private var teamRef = FirebaseFirestore.getInstance().collection("teams")
     private var tasksRef = FirebaseFirestore.getInstance().collection("tasks")
+    private var usersRef = FirebaseFirestore.getInstance().collection("users")
     private lateinit var currentTeam: Team
-    private var listener: ListenerRegistration? = null
+    private var taskListener: ListenerRegistration? = null
+    private var userListener: ListenerRegistration? = null
 
-    private fun createListener() {
+    private fun createListeners() {
         clearData()
+        createTaskListener()
+        createUserListener()
+    }
+
+    private fun createUserListener() {
+         userListener = usersRef.addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
+                if (snapshot != null) {
+                    for (docChange in snapshot.documentChanges) {
+                        val user = User.fromSnapshot(docChange.document)
+                        when (docChange.type) {
+                            DocumentChange.Type.ADDED -> {
+                                users.add(0, user)
+                            }
+                            DocumentChange.Type.MODIFIED -> {
+                                val position = users.indexOfFirst { user.id == it.id }
+                                users[position] = user
+                            }
+                            DocumentChange.Type.REMOVED -> {
+                                users.remove(user)
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun createTaskListener(){
         val teamRefDocument = teamRef.document(currentTeam.id)
-        listener = tasksRef.whereEqualTo("team", teamRefDocument)
+        taskListener = tasksRef.whereEqualTo("team", teamRefDocument)
             .addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
                 if (snapshot != null) {
                     for (docChange in snapshot.documentChanges) {
@@ -48,6 +78,7 @@ class TaskAdapter(var context: Context, var userID: String) :
                 }
             }
     }
+
     private fun clearData() {
         taskItems.clear()
         notifyDataSetChanged()
@@ -86,10 +117,18 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun setCurrentTeam(team: Team?) {
         currentTeam = team!!
-        createListener()
+        createListeners()
     }
 
     fun getTeamRef(): DocumentReference {
         return teamRef.document(currentTeam.id)
+    }
+
+    fun setLastViewedTeam() {
+        val currentUser = users.find{ user ->
+            user.id == userID
+        }
+        currentUser!!.teamLastViewedByUser = teamRef.document(currentTeam.id)
+        usersRef.document(userID).set(currentUser)
     }
 }
