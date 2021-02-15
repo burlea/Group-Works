@@ -47,7 +47,7 @@ class TaskDetailFragment : Fragment() {
         sign_up_task.setOnClickListener() {
             adapter.updateParticipantsList(taskToDisplay)
             task_particpants_detail.text =
-                "Participants: " + taskToDisplay.participantsList.size + 1 + "/" + taskToDisplay.maxParticipants
+                "Participants: " + taskToDisplay.currentParticipants + "/" + taskToDisplay.maxParticipants
             participants_list.text = taskToDisplay.participantsList.toString()
             adapter.updateTaskToDisplay(taskToDisplay)
             seeIfCanSignUp()
@@ -84,7 +84,7 @@ class TaskDetailFragment : Fragment() {
     private fun seeIfCanSignUp() {
         val isAlreadySignedUp = adapter.seeIfSignedUp(taskToDisplay)
         val isTaskDone = taskToDisplay.status == "Completed"
-        val taskIsAtCapacity = taskToDisplay.participantsList.size > taskToDisplay.maxParticipants
+        val taskIsAtCapacity = taskToDisplay.currentParticipants > taskToDisplay.maxParticipants
         sign_up_task.isEnabled = !(isAlreadySignedUp || isTaskDone || taskIsAtCapacity)
     }
 
@@ -112,7 +112,7 @@ class TaskDetailFragment : Fragment() {
 
         task_minimum_detail.text = "Minimum: " + taskToDisplay.minParticipants
         task_particpants_detail.text =
-            "Participants: " + taskToDisplay.participantsList.size + "/" + taskToDisplay.maxParticipants
+            "Participants: " + taskToDisplay.currentParticipants + "/" + taskToDisplay.maxParticipants
         description_text.setText(taskToDisplay.description)
         required_materials.setText(taskToDisplay.requiredMaterials)
         notes.setText(taskToDisplay.notesAndFiles)
