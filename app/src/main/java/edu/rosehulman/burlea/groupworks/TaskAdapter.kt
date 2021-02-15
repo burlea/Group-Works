@@ -89,4 +89,8 @@ class TaskAdapter(var context: Context, var userID: String) :
         currentTeam = team!!
         createListener()
     }
+
+    fun getTeamRef(): DocumentReference {
+        return teamRef.document(currentTeam.id)
+    }
 }

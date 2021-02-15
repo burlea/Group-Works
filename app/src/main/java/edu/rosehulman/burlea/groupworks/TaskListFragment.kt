@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.view_tasks.*
 import kotlinx.android.synthetic.main.view_tasks.add_members_button
 import kotlinx.android.synthetic.main.view_tasks.add_task_button
 import kotlinx.android.synthetic.main.view_tasks.view.*
-import kotlin.properties.Delegates
 
 class TaskListFragment() : Fragment() {
     private lateinit var adapter: TaskAdapter
@@ -25,6 +22,7 @@ class TaskListFragment() : Fragment() {
     private val teamRef = FirebaseFirestore.getInstance().collection("teams")
     private var isOwner = false
     private lateinit var adapterHandler: AdapterHandler
+    private var hasTeam = false;
 
     override fun onStart() {
         super.onStart()
@@ -45,7 +43,14 @@ class TaskListFragment() : Fragment() {
         arguments?.let {
             uid = it.getString("UID")
             val teamId = it.getString("TeamId")
-            getTeam(teamId!!)
+            hasTeam = it.getBoolean("hasTeam")
+            if (hasTeam){
+                getTeam(teamId!!)
+            }else{
+                Log.e(Constants.TAG, "No team found")
+                val noTeamFragment: Fragment = NoTeamsFragment()
+                switchFragment(noTeamFragment, "noTeam")
+            }
         }
         adapter = uid?.let { TaskAdapter(mainActivityContext, it) }!!
         adapterHandler.setAdapter(adapter)
@@ -123,11 +128,12 @@ class TaskListFragment() : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(uid: String, teamID: String) =
+        fun newInstance(uid: String, teamID: String, hasTeam: Boolean) =
             TaskListFragment().apply {
                 arguments = Bundle().apply {
                     putString("UID", uid)
                     putString("TeamId", teamID)
+                    putBoolean("hasTeam", hasTeam)
                 }
             }
     }

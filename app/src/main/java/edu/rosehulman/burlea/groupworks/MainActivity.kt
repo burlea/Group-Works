@@ -53,23 +53,27 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         }
     }
 
-    private fun switchToTaskViewFragment(teamID: String) {
+    private fun switchToTaskViewFragment(teamID: String, hasTeam: Boolean) {
         val ft = supportFragmentManager.beginTransaction()
-        Log.d(Constants.TAG, "at switch: $teamID")
-        taskView = TaskListFragment.newInstance(userID, teamID)
+        taskView = TaskListFragment.newInstance(userID, teamID, hasTeam)
         ft.replace(R.id.nav_host_fragment, taskView)
         ft.commit()
     }
 
     private fun findLastViewedTeam() {
-        var userLastTeamID = ""
+        var userLastTeamID = "No Last Viewed Team"
         usersRef.document(userID)
             .get()
             .addOnSuccessListener { document ->
-                val teamLastViewedReference = document.get("teamLastViewed") as DocumentReference
-                userLastTeamID = teamLastViewedReference.id
-                Log.d(Constants.TAG, "id: $userLastTeamID")
-                switchToTaskViewFragment(userLastTeamID)
+                val teamLastViewedValue = document.get("teamLastViewed")
+                if (teamLastViewedValue == null) {
+                    switchToTaskViewFragment(userLastTeamID, false)
+                } else {
+                    val teamLastViewedReference =
+                        document.get("teamLastViewed") as DocumentReference
+                    userLastTeamID = teamLastViewedReference.id
+                    switchToTaskViewFragment(userLastTeamID, true)
+                }
             }
     }
 
@@ -159,7 +163,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             val ft = supportFragmentManager.beginTransaction()
             val team = teamsUserIsIn.get(teamSelected)
             Log.d(Constants.TAG, "AtGEt Team${team!!.id}")
-            val taskListFragment = TaskListFragment.newInstance(userID, team!!.id)
+            val taskListFragment = TaskListFragment.newInstance(userID, team.id, true)
             ft.replace(R.id.nav_host_fragment, taskListFragment)
             ft.commit()
         }

@@ -57,8 +57,9 @@ class NewTaskFragment(var adapter: TaskAdapter) : Fragment() {
                 Toast.makeText(context, "Invalid participation requirements", Toast.LENGTH_LONG).show()
             }
             else {
+                val teamRef = adapter.getTeamRef()
                 adapter.add(Task(taskName, dueDateAndTime, status, currentParticipants, maxParticipants,
-                        minParticipants, description, requiredMaterials, notesAndFiles, participants))
+                        minParticipants, description, requiredMaterials, notesAndFiles, participants,teamRef))
                 fragmentManager!!.popBackStack()
             }
         }
