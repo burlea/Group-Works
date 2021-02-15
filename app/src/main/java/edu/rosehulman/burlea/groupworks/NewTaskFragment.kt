@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.add_members_tasks_button_row.*
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.add_task_button
 import kotlinx.android.synthetic.main.new_task_layout.*
-import kotlin.math.min
 
 
 class NewTaskFragment(var adapter: TaskAdapter) : Fragment() {

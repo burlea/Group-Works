@@ -35,10 +35,16 @@ class TaskDetailFragment : Fragment() {
         description_text.setText(taskToDisplay.description)
         required_materials.setText(taskToDisplay.requiredMaterials)
         notes.setText(taskToDisplay.notesAndFiles)
-        val participantsList = taskToDisplay.participants
-        if (participantsList.size != 0){
+        val participantsList = taskToDisplay.participantsList
+        if (participantsList.isNotEmpty()){
             participants_list.text = participantsList.toString()
         }
 
+        save_info.setOnClickListener(){
+            taskToDisplay.description = description_text.text.toString()
+            taskToDisplay.requiredMaterials = required_materials.text.toString()
+            taskToDisplay.notesAndFiles = notes.text.toString()
+            adapter.updateTaskToDisplay(taskToDisplay)
+        }
     }
 }

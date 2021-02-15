@@ -1,20 +1,16 @@
 package edu.rosehulman.burlea.groupworks
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Adapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ktx.toObject
-import java.sql.Ref
 
 private val RC_SIGN_IN = 1
 val auth = FirebaseAuth.getInstance()
@@ -26,7 +22,6 @@ private val teamsRef = FirebaseFirestore.getInstance().collection("teams")
 private var teamsUserIsIn = hashMapOf<String, Team>()
 private var taskHandler = SelectedTaskHandler()
 var adapterHandler = AdapterHandler()
-
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener,
     SelectedTaskHandler.SelectedTaskHandlerInterface, AdapterHandler.AdapterHandlerInterface {
