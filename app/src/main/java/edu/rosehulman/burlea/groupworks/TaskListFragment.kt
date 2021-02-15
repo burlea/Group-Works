@@ -51,6 +51,7 @@ class TaskListFragment() : Fragment() {
     }
 
     private fun getTeam(teamId: String) {
+        Log.d(Constants.TAG, "AtGEt Team$teamId")
         teamRef.document(teamId)
             .get()
             .addOnSuccessListener { documentSnapshot ->

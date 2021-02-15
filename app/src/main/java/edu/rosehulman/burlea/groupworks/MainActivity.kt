@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val team = document.toObject<Team>()
+                    val team = Team.fromSnapshot(document)
                     val teamName = team.teamName
                     teamsUserIsIn[teamName] = team
                     teamNames.add(teamName)
@@ -159,6 +159,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             val teamSelected = usersTeams[teamIndex]
             val ft = supportFragmentManager.beginTransaction()
             val team = teamsUserIsIn.get(teamSelected)
+            Log.d(Constants.TAG, "AtGEt Team${team!!.id}")
             val taskListFragment = TaskListFragment.newInstance(userID, team!!.id)
             ft.replace(R.id.nav_host_fragment, taskListFragment)
             ft.commit()
