@@ -40,8 +40,12 @@
     <string name="max_part">Max</string>
     <string name="task_description">Description:</string>
     <string name="due_date_hint">mm/dd/yy</string>
-    <string name="due_time_hint">12:00am</string>
+    <string name="due_time_hint">12:00</string>
     <string name="min_max_part_default">1</string>
     <string name="task_detail_complete_status">Status: Complete</string>
     <string name="new_team">New Team</string>
+    <string-array name="time_spinner_options">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
 </resources>

@@ -5,12 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.add_members_tasks_button_row.add_task_button
 import kotlinx.android.synthetic.main.new_task_layout.*
 
 
 class NewTaskFragment(var adapter: TaskAdapter) : Fragment() {
+
+    private var meridian: String = "AM"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -24,10 +29,22 @@ class NewTaskFragment(var adapter: TaskAdapter) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val timeSpinnerAdapter = ArrayAdapter.createFromResource(context!!, R.array.time_spinner_options, android.R.layout.simple_spinner_item)
+        timeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        am_pm_spinner.adapter = timeSpinnerAdapter
+        am_pm_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                meridian = parent.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
         add_task_button.setOnClickListener {
             val taskName = task_name_edit_text.text.toString()
             val dueDate = due_date_edit_text.text.toString()
-            val dueTime = due_time_edit_text.text.toString()
+            val dueTime = due_time_edit_text.text.toString() + " " + meridian
             val dueDateAndTime = dueDate + " @ " + dueTime
             val status = "Incomplete"
             val minParticipants: Int
