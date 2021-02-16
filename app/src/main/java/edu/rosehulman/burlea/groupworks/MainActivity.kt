@@ -65,12 +65,12 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         usersRef.document(userID)
             .get()
             .addOnSuccessListener { document ->
-                val teamLastViewedValue = document.get("teamLastViewed")
+                val teamLastViewedValue = document.get("teamLastViewedByUser")
                 if (teamLastViewedValue == null) {
                     switchToTaskViewFragment(userLastTeamID, false)
                 } else {
                     val teamLastViewedReference =
-                        document.get("teamLastViewed") as DocumentReference
+                        document.get("teamLastViewedByUser") as DocumentReference
                     userLastTeamID = teamLastViewedReference.id
                     switchToTaskViewFragment(userLastTeamID, true)
                 }

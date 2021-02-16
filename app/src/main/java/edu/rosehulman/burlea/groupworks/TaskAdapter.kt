@@ -15,19 +15,22 @@ class TaskAdapter(var context: Context, var userID: String) :
     private var teamRef = FirebaseFirestore.getInstance().collection("teams")
     private var tasksRef = FirebaseFirestore.getInstance().collection("tasks")
     private var usersRef = FirebaseFirestore.getInstance().collection("users")
-    private lateinit var currentTeam: Team
+    private var currentTeam: Team? = null
     private var taskListener: ListenerRegistration? = null
     private var userListener: ListenerRegistration? = null
     private var lastRemovedTask: Task? = null
 
-    private fun createListeners() {
+    fun createListeners() {
         clearData()
-        createTaskListener()
+        if (currentTeam !=null){
+            createTaskListener()
+        }
         createUserListener()
     }
 
     private fun createUserListener() {
-         userListener = usersRef.addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
+        userListener =
+            usersRef.addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
                 if (snapshot != null) {
                     for (docChange in snapshot.documentChanges) {
                         val user = User.fromSnapshot(docChange.document)
@@ -48,8 +51,8 @@ class TaskAdapter(var context: Context, var userID: String) :
             }
     }
 
-    private fun createTaskListener(){
-        val teamRefDocument = teamRef.document(currentTeam.id)
+    private fun createTaskListener() {
+        val teamRefDocument = teamRef.document(currentTeam!!.id)
         taskListener = tasksRef.whereEqualTo("team", teamRefDocument)
             .addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
                 if (snapshot != null) {
@@ -112,17 +115,21 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun setCurrentTeam(team: Team?) {
         currentTeam = team!!
-        createListeners()
     }
 
     fun getTeamRef(): DocumentReference {
-        return teamRef.document(currentTeam.id)
+        return teamRef.document(currentTeam!!.id)
     }
 
     fun setLastViewedTeam() {
         val currentUser = getUserFromId(userID)
-            currentUser!!.teamLastViewedByUser = teamRef.document(currentTeam.id)
-            usersRef.document(userID).set(currentUser)
+        Log.d(Constants.TAG,"Current user " + currentUser.toString())
+        Log.d(Constants.TAG,"current user team last viewed " + currentUser!!.teamLastViewedByUser.toString())
+        Log.d(Constants.TAG,"current user team " + currentTeam.toString())
+        if (currentTeam !=null){
+            currentUser.teamLastViewedByUser = teamRef.document(currentTeam!!.id)
+        }
+        usersRef.document(userID).set(currentUser)
     }
 
     fun seeIfSignedUp(task: Task): Boolean {
@@ -131,7 +138,8 @@ class TaskAdapter(var context: Context, var userID: String) :
     }
 
     fun getUserFromId(userId: String): User? {
-        Log.d(Constants.TAG,users.toString())
+        Log.d(Constants.TAG, "users list$users")
+        Log.d(Constants.TAG, "userId to search" + userId)
         return users.find { user ->
             user.id == userId
         }
@@ -139,9 +147,9 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun updateParticipantsList(task: Task) {
         val username = getUserFromId(userID)!!.username
-        Log.d(Constants.TAG,task.participantsList.toString())
+        Log.d(Constants.TAG, task.participantsList.toString())
         task.participantsList.add(username)
-        Log.d(Constants.TAG,task.participantsList.toString())
+        Log.d(Constants.TAG, task.participantsList.toString())
 
         task.currentParticipants++
         notifyDataSetChanged()
