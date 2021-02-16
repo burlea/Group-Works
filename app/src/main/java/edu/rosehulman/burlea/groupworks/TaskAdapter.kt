@@ -95,7 +95,7 @@ class TaskAdapter(var context: Context, var userID: String) :
         viewHolder.bind(taskItems[index])
     }
 
-    fun getSelectedTask(adapterPosition: Int): Task? {
+    fun getSelectedTask(adapterPosition: Int): Task {
         return taskItems[adapterPosition]
     }
 
@@ -138,8 +138,6 @@ class TaskAdapter(var context: Context, var userID: String) :
     }
 
     fun getUserFromId(userId: String): User? {
-        Log.d(Constants.TAG, "users list$users")
-        Log.d(Constants.TAG, "userId to search" + userId)
         return users.find { user ->
             user.id == userId
         }
@@ -147,10 +145,7 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun updateParticipantsList(task: Task) {
         val username = getUserFromId(userID)!!.username
-        Log.d(Constants.TAG, task.participantsList.toString())
         task.participantsList.add(username)
-        Log.d(Constants.TAG, task.participantsList.toString())
-
         task.currentParticipants++
         notifyDataSetChanged()
     }
@@ -168,6 +163,10 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun retrieveOldTask() {
         tasksRef.add(lastRemovedTask!!)
+    }
+
+    fun getTeam(newTeam: Team) {
+
     }
 
 }
