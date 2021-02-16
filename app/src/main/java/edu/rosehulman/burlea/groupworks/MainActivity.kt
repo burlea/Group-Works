@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
 
     private fun addUser(user: FirebaseUser) {
         val newUser = User(user.displayName!!,null)
-        usersRef.document(user.uid).get().addOnSuccessListener {
-            adapter.addIfNotAlreadyThere(newUser)
+        usersRef.document(user.uid).get().addOnFailureListener {
+            adapter.addNewUser(newUser)
         }
     }
 

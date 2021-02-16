@@ -183,7 +183,7 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     }
 
-    fun addIfNotAlreadyThere(newUser: User) {
+    fun addNewUser(newUser: User) {
         usersRef.add(newUser)
     }
 
