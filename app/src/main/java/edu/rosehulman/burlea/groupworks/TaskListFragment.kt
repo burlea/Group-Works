@@ -33,25 +33,27 @@ class TaskListFragment() : Fragment() {
         view_tasks.recycler_view.setHasFixedSize(true)
         view_tasks.recycler_view.adapter = adapter
 
-        val touchHelper = ItemTouchHelper(
-            object : ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.RIGHT
-            ) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return true
-                }
+        if (isOwner){
+            val touchHelper = ItemTouchHelper(
+                object : ItemTouchHelper.SimpleCallback(
+                    ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+                    ItemTouchHelper.RIGHT
+                ) {
+                    override fun onMove(
+                        recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder
+                    ): Boolean {
+                        return true
+                    }
 
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    adapter.removeTask(viewHolder.adapterPosition)
-                    showRemoveSnackBar(view_tasks.recycler_view)
-                }
-            })
-        touchHelper.attachToRecyclerView(view_tasks.recycler_view)
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        adapter.removeTask(viewHolder.adapterPosition)
+                        showRemoveSnackBar(view_tasks.recycler_view)
+                    }
+                })
+            touchHelper.attachToRecyclerView(view_tasks.recycler_view)
+        }
     }
 
     private fun showRemoveSnackBar(view: View) {
