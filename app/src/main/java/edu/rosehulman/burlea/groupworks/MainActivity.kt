@@ -22,6 +22,7 @@ private val teamsRef = FirebaseFirestore.getInstance().collection("teams")
 private var teamsUserIsIn = hashMapOf<String, Team>()
 private var taskHandler = SelectedTaskHandler()
 var adapterHandler = AdapterHandler()
+private var isSignedIn = false
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener,
     SelectedTaskHandler.SelectedTaskHandlerInterface, AdapterHandler.AdapterHandlerInterface {
@@ -46,8 +47,10 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             val user = auth.currentUser
             if (user != null) {
                 userID = user.uid
+                isSignedIn = true
                 findLastViewedTeam()
             } else {
+                isSignedIn = false
                 switchToLoginFragment()
             }
         }
@@ -113,13 +116,30 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         return when (item.itemId) {
             R.id.sign_out -> signOut()
             R.id.view_teams -> showTeams()
-            R.id.new_team -> addTeam()
+            R.id.new_team -> seeIfAddTeam()
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun seeIfAddTeam(): Boolean{
+        if (!isSignedIn) {
+            presentCantAddTeamsToast()
+        } else {
+            addTeam()
+        }
+        return true
+    }
+
+    private fun presentCantAddTeamsToast(){
+        Toast.makeText(
+            this,
+            "Please log in to add a team",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
     private fun showTeams(): Boolean {
-        if (auth.currentUser == null) {
+        if (!isSignedIn) {
             presentCantSeeTeamsToast()
         } else {
             getTeams()
@@ -172,13 +192,13 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
 
     private fun addTeam(): Boolean{
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.nav_host_fragment, NewTeamFragment(teamsRef, usersRef.document(userID)))
+        ft.replace(R.id.nav_host_fragment, NewTeamFragment(teamsRef, usersRef.document(userID))).addToBackStack("add team")
         ft.commit()
         return true
     }
 
     private fun signOut(): Boolean {
-        if (auth.currentUser == null) {
+        if (!isSignedIn) {
             presentCantSeeSignOutToast()
         } else {
             signOutLoggedInUser()
@@ -200,6 +220,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         ft.commit()
         val adapter = getAdapterHandler().getAdapter()
         adapter.setLastViewedTeam()
+       isSignedIn = false
     }
 
     override fun getSelectedTaskHandler() = taskHandler
