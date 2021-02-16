@@ -85,6 +85,7 @@ class TaskListFragment() : Fragment() {
         }
         adapter = uid?.let { TaskAdapter(mainActivityContext, it) }!!
         adapterHandler.setAdapter(adapter)
+        adapter.createListeners()
     }
 
     private fun getTeam(teamId: String) {
