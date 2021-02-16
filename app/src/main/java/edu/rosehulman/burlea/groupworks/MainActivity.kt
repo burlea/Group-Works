@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,6 +24,7 @@ private var teamsUserIsIn = hashMapOf<String, Team>()
 private var taskHandler = SelectedTaskHandler()
 var adapterHandler = AdapterHandler()
 private var isSignedIn = false
+private lateinit var adapter: TaskAdapter
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener,
     SelectedTaskHandler.SelectedTaskHandlerInterface, AdapterHandler.AdapterHandlerInterface {
@@ -48,11 +50,25 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             if (user != null) {
                 userID = user.uid
                 isSignedIn = true
+                makeAdapter()
+                addUser(user)
                 findLastViewedTeam()
             } else {
                 isSignedIn = false
                 switchToLoginFragment()
             }
+        }
+    }
+
+    private fun makeAdapter(){
+        adapter = TaskAdapter(this, userID)
+        adapterHandler.setAdapter(adapter)
+    }
+
+    private fun addUser(user: FirebaseUser) {
+        val newUser = User(user.displayName!!,null)
+        usersRef.document(user.uid).get().addOnSuccessListener {
+            adapter.addIfNotAlreadyThere(newUser)
         }
     }
 
@@ -121,7 +137,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         }
     }
 
-    private fun seeIfAddTeam(): Boolean{
+    private fun seeIfAddTeam(): Boolean {
         if (!isSignedIn) {
             presentCantAddTeamsToast()
         } else {
@@ -130,7 +146,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         return true
     }
 
-    private fun presentCantAddTeamsToast(){
+    private fun presentCantAddTeamsToast() {
         Toast.makeText(
             this,
             "Please log in to add a team",
@@ -190,9 +206,10 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         dialog.show()
     }
 
-    private fun addTeam(): Boolean{
+    private fun addTeam(): Boolean {
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.nav_host_fragment, NewTeamFragment(teamsRef, usersRef.document(userID))).addToBackStack("add team")
+        ft.replace(R.id.nav_host_fragment, NewTeamFragment(teamsRef, usersRef.document(userID)))
+            .addToBackStack("add team")
         ft.commit()
         return true
     }
@@ -218,9 +235,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.nav_host_fragment, LoginFragment())
         ft.commit()
-        val adapter = getAdapterHandler().getAdapter()
         adapter.setLastViewedTeam()
-       isSignedIn = false
+        isSignedIn = false
     }
 
     override fun getSelectedTaskHandler() = taskHandler

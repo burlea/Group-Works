@@ -67,6 +67,7 @@ class TaskListFragment() : Fragment() {
         super.onAttach(context)
         mainActivityContext = context
         adapterHandler = (context as AdapterHandler.AdapterHandlerInterface).getAdapterHandler()
+        adapter = adapterHandler.getAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,8 +84,7 @@ class TaskListFragment() : Fragment() {
                 switchFragment(noTeamFragment, "noTeam")
             }
         }
-        adapter = uid?.let { TaskAdapter(mainActivityContext, it) }!!
-        adapterHandler.setAdapter(adapter)
+
         adapter.createListeners()
     }
 
