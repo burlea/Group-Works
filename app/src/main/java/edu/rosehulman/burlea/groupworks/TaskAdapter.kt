@@ -18,6 +18,7 @@ class TaskAdapter(var context: Context, var userID: String) :
     private lateinit var currentTeam: Team
     private var taskListener: ListenerRegistration? = null
     private var userListener: ListenerRegistration? = null
+    private var lastRemovedTask: Task? = null
 
     private fun createListeners() {
         clearData()
@@ -120,8 +121,8 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun setLastViewedTeam() {
         val currentUser = getUserFromId(userID)
-        currentUser!!.teamLastViewedByUser = teamRef.document(currentTeam.id)
-        usersRef.document(userID).set(currentUser)
+            currentUser!!.teamLastViewedByUser = teamRef.document(currentTeam.id)
+            usersRef.document(userID).set(currentUser)
     }
 
     fun seeIfSignedUp(task: Task): Boolean {
@@ -130,6 +131,7 @@ class TaskAdapter(var context: Context, var userID: String) :
     }
 
     fun getUserFromId(userId: String): User? {
+        Log.d(Constants.TAG,users.toString())
         return users.find { user ->
             user.id == userId
         }
@@ -144,4 +146,20 @@ class TaskAdapter(var context: Context, var userID: String) :
         task.currentParticipants++
         notifyDataSetChanged()
     }
+
+    fun removeTask(adapterPosition: Int) {
+        val taskToRemove = taskItems[adapterPosition]
+        tasksRef.document(taskItems[adapterPosition].id).delete()
+        notifyItemRemoved(adapterPosition)
+        saveTask(taskToRemove)
+    }
+
+    private fun saveTask(taskToRemove: Task) {
+        lastRemovedTask = taskToRemove
+    }
+
+    fun retrieveOldTask() {
+        tasksRef.add(lastRemovedTask!!)
+    }
+
 }
