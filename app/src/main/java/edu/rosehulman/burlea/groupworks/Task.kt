@@ -11,7 +11,7 @@ data class Task(
     var currentParticipants: Int = 0, var maxParticipants: Int = 0,
     var minParticipants: Int = 0, var description: String = "",
     var requiredMaterials: String = "", var notesAndFiles: String = "",
-    var participantsList: List<String> = ArrayList(), var team: DocumentReference = FirebaseFirestore.getInstance().collection("tasks").document("deault")){
+    var participantsList: ArrayList<String> = ArrayList(), var team: DocumentReference = FirebaseFirestore.getInstance().collection("tasks").document("deault")){
 
     @get:Exclude
     var id = ""
@@ -19,7 +19,7 @@ data class Task(
     companion object {
         fun fromSnapshot(snapshot: DocumentSnapshot): Task {
             val task = snapshot.toObject(Task::class.java)!!
-            task.participantsList = snapshot.get("participantsList") as List<String>
+            task.participantsList = snapshot.get("participantsList") as ArrayList<String>
             task.id = snapshot.id
             return task
         }

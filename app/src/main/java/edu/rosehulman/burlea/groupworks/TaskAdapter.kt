@@ -137,8 +137,9 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun updateParticipantsList(task: Task) {
         val username = getUserFromId(userID)!!.username
-        val list = task.participantsList
-        list.toMutableList().add(username)
+        Log.d(Constants.TAG,task.participantsList.toString())
+        task.participantsList.add(username)
+        Log.d(Constants.TAG,task.participantsList.toString())
 
         task.currentParticipants++
         notifyDataSetChanged()

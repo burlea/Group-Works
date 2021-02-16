@@ -50,7 +50,8 @@ class TaskDetailFragment : Fragment() {
                 "Participants: " + taskToDisplay.currentParticipants + "/" + taskToDisplay.maxParticipants
             participants_list.text = taskToDisplay.participantsList.toString()
             adapter.updateTaskToDisplay(taskToDisplay)
-            seeIfCanSignUp()
+            sign_up_task.isEnabled = false
+            complete_task.isEnabled = true
         }
 
         complete_task.setOnClickListener() {
