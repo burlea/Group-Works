@@ -141,7 +141,7 @@ class TaskListFragment() : Fragment() {
             switchFragment(newTaskFragment, "task")
         }
         add_members_button.setOnClickListener {
-            val addMemberFragment = AddMemberFragment()
+            val addMemberFragment = AddMemberFragment(team, teamRef)
             switchFragment(addMemberFragment, "member")
         }
         add_task_button.visibility = View.GONE
