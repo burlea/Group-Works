@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         return when (item.itemId) {
             R.id.sign_out -> signOut()
             R.id.view_teams -> showTeams()
+            R.id.new_team -> addTeam()
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -167,6 +168,13 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun addTeam(): Boolean{
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.nav_host_fragment, NewTeamFragment(teamsRef, usersRef.document(userID)))
+        ft.commit()
+        return true
     }
 
     private fun signOut(): Boolean {
