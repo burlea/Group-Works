@@ -96,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@+id/username_text"
+        android:text="@string/description"
         android:layout_alignTop="@+id/description_text"
         android:layout_alignStart="@+id/description_text"
         android:layout_marginTop="-20dp"
