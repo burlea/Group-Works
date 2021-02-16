@@ -121,6 +121,10 @@ class TaskAdapter(var context: Context, var userID: String) :
         return teamRef.document(currentTeam!!.id)
     }
 
+    fun getUsersRef(): CollectionReference{
+        return usersRef
+    }
+
     fun setLastViewedTeam() {
         val currentUser = getUserFromId(userID)
         Log.d(Constants.TAG,"Current user " + currentUser.toString())
@@ -140,6 +144,16 @@ class TaskAdapter(var context: Context, var userID: String) :
     fun getUserFromId(userId: String): User? {
         return users.find { user ->
             user.id == userId
+        }
+    }
+
+    fun addUser(user: User){
+        users.add(user)
+    }
+
+    fun getUserFromUsername(username: String): User?{
+        return users.find { user ->
+            user.username == username
         }
     }
 
