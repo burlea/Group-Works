@@ -6,15 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.task_detail_view.*
-import kotlinx.android.synthetic.main.task_detail_view.required_materials
+
 
 class TaskDetailFragment : Fragment() {
     private lateinit var selectedTaskHandler: SelectedTaskHandler
     private lateinit var taskToDisplay: Task
     private lateinit var adapter: TaskAdapter
+    private lateinit var context: AppCompatActivity
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -23,7 +26,15 @@ class TaskDetailFragment : Fragment() {
         taskToDisplay = selectedTaskHandler.getSelectedTask()
         adapter =
             (context as AdapterHandler.AdapterHandlerInterface).getAdapterHandler().getAdapter()
+        this.context = (context as AppCompatActivity)
     }
+
+    override fun onStop() {
+        super.onStop()
+        val taskListFragment: TaskListFragment = TaskListFragment.newInstance(userID, adapter.getTeamID(), true)
+        activity!!.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,taskListFragment).addToBackStack(null).commit()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -179,13 +179,11 @@ class TaskAdapter(var context: Context, var userID: String) :
         lastRemovedTask = null
     }
 
-    fun getTeam(newTeam: Team) {
-
+    fun getTeamID(): String {
+        return currentTeam!!.id
     }
 
     fun addNewUser(newUser: User) {
         usersRef.add(newUser)
     }
-
-
 }

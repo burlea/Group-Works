@@ -41,7 +41,7 @@ data class Team(
 
         private fun goToTeamListView(userID: String, id: String, activity: AppCompatActivity) {
             val taskListFragment: TaskListFragment = TaskListFragment.newInstance(userID, id, true)
-            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,taskListFragment).addToBackStack(null).commit()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,taskListFragment).addToBackStack("detail").commit()
         }
     }
 }

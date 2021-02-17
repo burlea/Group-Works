@@ -128,8 +128,8 @@ class TaskListFragment() : Fragment() {
     }
 
     private fun hideOwnerButtons() {
-        add_task_button.visibility = View.INVISIBLE
-        add_members_button.visibility = View.INVISIBLE
+        add_task_button.visibility = View.GONE
+        add_members_button.visibility = View.GONE
     }
 
     override fun onCreateView(
