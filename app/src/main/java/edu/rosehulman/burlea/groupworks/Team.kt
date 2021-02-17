@@ -9,7 +9,6 @@ import com.google.firebase.firestore.Exclude
 
 data class Team(
     val teamName: String = "",
-    val tasks: ArrayList<DocumentReference> = ArrayList(),
     val members: ArrayList<DocumentReference> = ArrayList(),
     val owners: ArrayList<DocumentReference> = ArrayList(),
     ){

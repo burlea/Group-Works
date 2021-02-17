@@ -28,7 +28,7 @@ class TaskAdapter(var context: Context, var userID: String) :
         createUserListener()
     }
 
-    private fun createUserListener() {
+     fun createUserListener() {
         userListener =
             usersRef.addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
                 if (snapshot != null) {
@@ -52,6 +52,7 @@ class TaskAdapter(var context: Context, var userID: String) :
     }
 
     private fun createTaskListener() {
+        clearData()
         val teamRefDocument = teamRef.document(currentTeam!!.id)
         taskListener = tasksRef.whereEqualTo("team", teamRefDocument)
             .addSnapshotListener { snapshot: QuerySnapshot?, _: FirebaseFirestoreException? ->
@@ -115,6 +116,7 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun setCurrentTeam(team: Team?) {
         currentTeam = team!!
+        createTaskListener()
     }
 
     fun getTeamRef(): DocumentReference {
@@ -176,7 +178,8 @@ class TaskAdapter(var context: Context, var userID: String) :
     }
 
     fun retrieveOldTask() {
-        tasksRef.add(lastRemovedTask!!)
+        add(lastRemovedTask!!)
+        lastRemovedTask = null
     }
 
     fun getTeam(newTeam: Team) {

@@ -28,6 +28,7 @@ class AddMemberFragment(var team: Team?, var adapter: TaskAdapter) : Fragment() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         new_username_button.setOnClickListener {
             val username = username_edit_text.text.toString()
 //            val user = User(username, adapter.getTeamRef())
@@ -35,6 +36,7 @@ class AddMemberFragment(var team: Team?, var adapter: TaskAdapter) : Fragment() 
             new_added_usernames_view.append("\n"+username)
             username_edit_text.setText("")
         }
+
         add_all_button.setOnClickListener {
             if(!usernamesToAdd.isEmpty()){
                 for(username in usernamesToAdd){

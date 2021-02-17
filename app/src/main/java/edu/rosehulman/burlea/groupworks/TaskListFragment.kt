@@ -34,26 +34,30 @@ class TaskListFragment() : Fragment() {
         view_tasks.recycler_view.adapter = adapter
 
         if (isOwner){
-            val touchHelper = ItemTouchHelper(
-                object : ItemTouchHelper.SimpleCallback(
-                    ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                    ItemTouchHelper.RIGHT
-                ) {
-                    override fun onMove(
-                        recyclerView: RecyclerView,
-                        viewHolder: RecyclerView.ViewHolder,
-                        target: RecyclerView.ViewHolder
-                    ): Boolean {
-                        return true
-                    }
-
-                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        adapter.removeTask(viewHolder.adapterPosition)
-                        showRemoveSnackBar(view_tasks.recycler_view)
-                    }
-                })
-            touchHelper.attachToRecyclerView(view_tasks.recycler_view)
+            activateTaskSwipeListner()
         }
+    }
+
+    private fun activateTaskSwipeListner(){
+        val touchHelper = ItemTouchHelper(
+            object : ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+                ItemTouchHelper.RIGHT
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return true
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    adapter.removeTask(viewHolder.adapterPosition)
+                    showRemoveSnackBar(view_tasks.recycler_view)
+                }
+            })
+        touchHelper.attachToRecyclerView(view_tasks.recycler_view)
     }
 
     private fun showRemoveSnackBar(view: View) {
@@ -85,7 +89,7 @@ class TaskListFragment() : Fragment() {
             }
         }
 
-        adapter.createListeners()
+        adapter.createUserListener()
     }
 
     private fun getTeam(teamId: String) {
@@ -111,6 +115,7 @@ class TaskListFragment() : Fragment() {
         }
         if (isOwner) {
             showOwnerButtons()
+            activateTaskSwipeListner()
         } else {
             hideOwnerButtons()
         }
