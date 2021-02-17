@@ -40,12 +40,11 @@ class NewTeamFragment(var teamsRef: CollectionReference, var user: DocumentRefer
         super.onViewCreated(view, savedInstanceState)
         create_team_button.setOnClickListener {
             val teamName = new_team_edit_text.text.toString()
-            val tasks = ArrayList<DocumentReference>()
             val members = ArrayList<DocumentReference>()
             val owners = ArrayList<DocumentReference>()
             owners.add(user)
             members.add(user)
-            val newTeam = Team(teamName, tasks, members, owners)
+            val newTeam = Team(teamName, members, owners)
             val teamReference = teamsRef.add(newTeam)
             adapter.createListeners()
             val userObject = adapter.getUserFromId(userID)
