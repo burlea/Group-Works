@@ -60,13 +60,13 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         }
     }
 
-    private fun makeAdapter(){
+    private fun makeAdapter() {
         adapter = TaskAdapter(this, userID)
         adapterHandler.setAdapter(adapter)
     }
 
     private fun addUser(user: FirebaseUser) {
-        val newUser = User(user.displayName!!,null)
+        val newUser = User(user.displayName!!, null)
         usersRef.document(user.uid).get().addOnFailureListener {
             adapter.addNewUser(newUser)
         }
@@ -86,12 +86,27 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             .addOnSuccessListener { document ->
                 val teamLastViewedValue = document.get("teamLastViewedByUser")
                 if (teamLastViewedValue == null) {
-                    switchToTaskViewFragment(userLastTeamID, false)
+                    getRandomTeamToShow()
                 } else {
                     val teamLastViewedReference =
                         document.get("teamLastViewedByUser") as DocumentReference
                     userLastTeamID = teamLastViewedReference.id
                     switchToTaskViewFragment(userLastTeamID, true)
+                }
+            }
+    }
+
+    private fun getRandomTeamToShow() {
+        var userLastTeamID = "No Last Viewed Team"
+        teamsRef.whereArrayContains("members", usersRef.document(userID))
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.isEmpty) {
+                    val teamLastViewedReference = document.documents[0]
+                    userLastTeamID = teamLastViewedReference.id
+                    switchToTaskViewFragment(userLastTeamID, true)
+                } else {
+                    switchToTaskViewFragment(userLastTeamID, false)
                 }
             }
     }
@@ -171,7 +186,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         ).show()
     }
 
-    private fun getTeams(): Boolean {
+    private fun getTeams(): ArrayList<String> {
         val teamNames = ArrayList<String>()
         teamsRef.whereArrayContains("members", usersRef.document(userID))
             .get()
@@ -186,7 +201,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             }.addOnFailureListener {
                 Log.d(Constants.TAG, "Error: $it")
             }
-        return true
+        return teamNames
     }
 
     private fun showTeamsDialog(usersTeams: ArrayList<String>) {
