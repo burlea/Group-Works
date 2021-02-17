@@ -16,6 +16,10 @@ data class Team(
     @get:Exclude
     var id = ""
 
+    fun addMember(user: DocumentReference){
+        members.add(user)
+    }
+
     companion object {
         fun fromSnapshot(snapshot: DocumentSnapshot): Team {
             val team = snapshot.toObject(Team::class.java)!!

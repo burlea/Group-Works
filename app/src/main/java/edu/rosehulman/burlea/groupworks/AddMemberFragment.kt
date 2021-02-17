@@ -13,7 +13,7 @@ class AddMemberFragment(var team: Team?, var adapter: TaskAdapter) : Fragment() 
     private var param1: String? = null
     private var param2: String? = null
 
-    private var usernamesToAdd = ArrayList<User>()
+    private var usernamesToAdd = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,21 +31,26 @@ class AddMemberFragment(var team: Team?, var adapter: TaskAdapter) : Fragment() 
 
         new_username_button.setOnClickListener {
             val username = username_edit_text.text.toString()
-            val user = User(username, null)
-            usernamesToAdd.add(user)
-            new_added_usernames_view.append("\n"+user.username)
+//            val user = User(username, adapter.getTeamRef())
+            usernamesToAdd.add(username)
+            new_added_usernames_view.append("\n"+username)
             username_edit_text.setText("")
         }
 
         add_all_button.setOnClickListener {
             if(!usernamesToAdd.isEmpty()){
-                for(user in usernamesToAdd){
-                    adapter.getUsersRef().add(user)
-                    adapter.getTeamRef().update("members", FieldValue.arrayUnion(user))
-                    adapter.addUser(user)
+                for(username in usernamesToAdd){
+                    val user = adapter.getUserFromUsername(username)
+                    if(user != null){
+                        val userDocRef = adapter.getUsersRef().document(user.id)
+                        adapter.getTeamRef().update("members", FieldValue.arrayUnion(userDocRef))
+                        team!!.addMember(userDocRef)
+                    }
+//                    adapter.getUsersRef().add(user!!)
                 }
                 usernamesToAdd.clear()
                 new_added_usernames_view.text = ""
+                fragmentManager!!.popBackStack()
             }
             else{
                 Toast.makeText(context, "No usernames have been supplied", Toast.LENGTH_LONG).show()
