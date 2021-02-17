@@ -129,13 +129,10 @@ class TaskAdapter(var context: Context, var userID: String) :
 
     fun setLastViewedTeam() {
         val currentUser = getUserFromId(userID)
-        Log.d(Constants.TAG,"Current user " + currentUser.toString())
-        Log.d(Constants.TAG,"current user team last viewed " + currentUser!!.teamLastViewedByUser.toString())
-        Log.d(Constants.TAG,"current user team " + currentTeam.toString())
         if (currentTeam !=null){
-            currentUser.teamLastViewedByUser = teamRef.document(currentTeam!!.id)
+            currentUser!!.teamLastViewedByUser = teamRef.document(currentTeam!!.id)
         }
-        usersRef.document(userID).set(currentUser)
+        usersRef.document(userID).set(currentUser!!)
     }
 
     fun seeIfSignedUp(task: Task): Boolean {
