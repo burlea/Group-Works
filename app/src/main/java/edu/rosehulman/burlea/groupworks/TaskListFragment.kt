@@ -34,6 +34,7 @@ class TaskListFragment() : Fragment() {
         view_tasks.recycler_view.adapter = adapter
 
         if (isOwner){
+            showOwnerButtons()
             activateTaskSwipeListner()
         }
     }

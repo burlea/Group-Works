@@ -44,6 +44,8 @@
     <string name="task_detail_complete_status">Status: Complete</string>
     <string name="new_team">New Team</string>
     <string name="description">Description:</string>
+    <string name="add_task">Add Task</string>
+    <string name="add_members">Add Members</string>
     <string-array name="time_spinner_options">
         <item>AM</item>
         <item>PM</item>

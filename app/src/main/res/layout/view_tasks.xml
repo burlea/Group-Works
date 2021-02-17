@@ -26,9 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint = "@color/gray"
-        android:text="Add Members"
+        android:text="@string/add_members"
         android:textColor="@color/black"
-        android:layout_marginTop="30dp"
+        android:layout_alignTop="@id/title"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="25dp"
         android:layout_alignParentStart="true"/>
 
@@ -37,7 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint = "@color/gray"
-        android:text="Add Task"
+        android:text="@string/add_task"
+        android:layout_alignTop="@id/title"
         android:textColor="@color/black"
         android:layout_marginTop="30dp"
         android:layout_alignBaseline="@id/add_members_button"

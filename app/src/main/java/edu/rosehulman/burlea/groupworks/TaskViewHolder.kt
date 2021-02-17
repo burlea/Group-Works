@@ -32,7 +32,7 @@ class TaskViewHolder: RecyclerView.ViewHolder {
             val activity: AppCompatActivity = (context as AppCompatActivity)
             val taskHandler = (context as SelectedTaskHandler.SelectedTaskHandlerInterface).getSelectedTaskHandler()
             selectedTask?.let { it1 -> taskHandler.setSelectedTask(it1) }
-            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,TaskDetailFragment()).addToBackStack(null).commit()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,TaskDetailFragment()).addToBackStack("detail").commit()
         }
     }
 
